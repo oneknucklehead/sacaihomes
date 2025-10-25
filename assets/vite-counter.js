@@ -1,0 +1,1 @@
+import{j as e,c as t,r}from"./vite-client.js";function o(){return e.jsx("div",{className:"text-9xl h-64 w-full",children:"hello from react"})}t.createRoot(document.getElementById("counter")).render(e.jsx(r.StrictMode,{children:e.jsx(o,{})}));

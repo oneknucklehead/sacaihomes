@@ -296,6 +296,7 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+    {{ 'tailwind.output.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -310,6 +311,10 @@
     {% sections 'header-group' %}
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      <div class="bg-green-500 h-64 w-full">Hello world</div>
+      <div class="bg-amber-950 h-64">Hello</div>
+      {% render 'framework-snippet' %}
+
       {{ content_for_layout }}
     </main>
 
