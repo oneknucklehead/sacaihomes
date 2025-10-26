@@ -1,160 +1,78 @@
-{% comment %}
-  Collection Slider Section
-  - Desktop/Tablet: SwiperJS Slider
-  - Mobile: Horizontal scroll
-{% endcomment %}
-
-{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
-
-<div class="collection-slider-section page-width section-{{ section.id }}-padding">
-  {%- unless section.settings.title == blank -%}
-    <h2 class="collection-list-title text-center mb-8">{{ section.settings.title }}</h2>
-  {%- endunless -%}
-
-  <!-- Desktop/Tablet Slider -->
-  <div class="swiper-container hidden md:block" id="collectionSwiper-{{ section.id }}">
-    <div class="swiper-wrapper">
-      {% for block in section.blocks %}
-        {% assign collection = block.settings.collection %}
-        {% if collection %}
-          <div class="swiper-slide">
-            {% render 'card-collection',
-              card_collection: collection,
-              media_aspect_ratio: section.settings.image_ratio,
-              placeholder_image: 'collection-placeholder'
-            %}
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-
-    <!-- Navigation -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
-
-  <!-- Mobile Horizontal Scroll -->
-  <div class="flex md:hidden space-x-4 overflow-x-auto pb-4 snap-x snap-mandatory">
-    {% for block in section.blocks %}
-      {% assign collection = block.settings.collection %}
-      {% if collection %}
-        <div class="flex-shrink-0 w-3/4 snap-center">
-          {% render 'card-collection',
-            card_collection: collection,
-            media_aspect_ratio: section.settings.image_ratio,
-            placeholder_image: 'collection-placeholder'
-          %}
-        </div>
-      {% endif %}
-    {% endfor %}
-  </div>
-</div>
-
-<!-- SwiperJS -->
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const swiperEl = document.getElementById('collectionSwiper-{{ section.id }}');
-    if (swiperEl) {
-      new Swiper(swiperEl, {
-        slidesPerView: 3,
-        spaceBetween: 24,
-        slidesPerGroup: 3,
-        loop: false,
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        speed: 600,
-        breakpoints: {
-          768: { slidesPerView: 2, slidesPerGroup: 2 },
-          1024: { slidesPerView: 3, slidesPerGroup: 3 },
-        },
-      });
-    }
-  });
-</script>
-
-{%- style -%}
-  .collection-slider-section {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-  @media screen and (min-width: 750px) {
-    .collection-slider-section {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
-
 {% schema %}
 {
   "name": "Collection Slider",
-  "tag": "section",
-  "max_blocks": 15,
   "settings": [
     {
       "type": "text",
-      "id": "title",
-      "label": "Section Title",
-      "default": "SHOP OUR COLLECTIONS"
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "label": "Image Ratio",
-      "options": [
-        { "value": "square", "label": "Square" },
-        { "value": "portrait", "label": "Portrait" },
-        { "value": "adapt", "label": "Adapt" }
-      ],
-      "default": "square"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Padding Top (px)",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Padding Bottom (px)",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 36
-    }
-  ],
-  "blocks": [
-    {
-      "type": "collection",
-      "name": "Collection",
-      "settings": [
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Select Collection"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Collection Carousel",
-      "category": "Collections",
-      "blocks": [{ "type": "collection" }, { "type": "collection" }, { "type": "collection" }]
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop Our Collections"
     }
   ]
 }
 {% endschema %}
+
+<div class="collection-slider-section py-10 bg-white">
+  <div class="container mx-auto px-4">
+    {% if section.settings.heading != blank %}
+      <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="glide">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides grid grid-cols-1 md:grid-cols-3 gap-6">
+          {% for collection in collections %}
+            <li class="glide__slide bg-gray-100 rounded-lg overflow-hidden shadow hover:shadow-lg transition-all">
+              <a href="{{ collection.url }}">
+                {% if collection.image %}
+                  <img
+                    src="{{ collection.image | img_url: '500x' }}"
+                    alt="{{ collection.title }}"
+                    class="w-full h-48 object-cover"
+                  >
+                {% else %}
+                  <div class="w-full h-48 bg-gray-300 flex items-center justify-center text-gray-700">No Image</div>
+                {% endif %}
+                <h3 class="text-lg font-semibold p-4 text-center">{{ collection.title }}</h3>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Arrows -->
+      <div class="flex justify-between items-center mt-4">
+        <button
+          data-glide-dir="<"
+          class="glide__arrow glide__arrow--left bg-gray-800 text-white p-2 rounded hover:bg-gray-700"
+        >
+          &#10094;
+        </button>
+        <button
+          data-glide-dir=">"
+          class="glide__arrow glide__arrow--right bg-gray-800 text-white p-2 rounded hover:bg-gray-700"
+        >
+          &#10095;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Glide('.glide', {
+      type: 'carousel',
+      perView: 3,
+      focusAt: 'center',
+      gap: 24,
+      autoplay: false,
+      hoverpause: true,
+      rewind: true,
+      breakpoints: {
+        1024: { perView: 2 },
+        640: { perView: 1 },
+      },
+    }).mount();
+  });
+</script>

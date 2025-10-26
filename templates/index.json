@@ -297,27 +297,7 @@
         "padding_bottom": 36
       }
     },
-    "collections_slider_8rWWVF": {
-      "type": "collections-slider",
-      "blocks": {
-        "collection_CJfwy4": {
-          "type": "collection",
-          "settings": {
-            "collection": "decor"
-          }
-        }
-      },
-      "block_order": [
-        "collection_CJfwy4"
-      ],
-      "name": "Collection Slider",
-      "settings": {
-        "title": "SHOP OUR COLLECTIONS",
-        "image_ratio": "square",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
+    
     "image_banner_PaG766": {
       "type": "image-banner",
       "blocks": {
@@ -378,6 +358,5 @@
     "collage",
     "video",
     "multicolumn",
-    "collections_slider_8rWWVF"
   ]
 }
