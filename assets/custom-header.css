@@ -1,0 +1,95 @@
+.custom-header {
+  background-color: #273A27;
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  padding: 1.5rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Logo centered */
+.custom-header .header__heading-link img {
+  height: 55px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.custom-header .header__heading-link:hover img {
+  transform: scale(1.05);
+}
+
+/* Menu items */
+.custom-header .list-menu--inline {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.custom-header .list-menu__item--link {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-header .list-menu__item--link:hover {
+  color: #d8cfa8;
+  transform: translateY(-2px);
+}
+
+/* Dropdown menus */
+.custom-header .list-menu__item summary + ul {
+  position: absolute;
+  top: 100%;
+  background: #273A27;
+  padding: 1rem 0;
+  min-width: 180px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.custom-header .list-menu__item:hover summary + ul {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.custom-header .list-menu__item summary + ul a {
+  color: #fff;
+  display: block;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.custom-header .list-menu__item summary + ul a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Icons on right */
+.custom-header .header__icons {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.custom-header .header__icon svg path {
+  stroke: #fff;
+}
+
+.custom-header .header__icon:hover svg path {
+  stroke: #d8cfa8;
+}
+
+/* Sticky shrink effect on scroll */
+.shopify-section-header-sticky .custom-header {
+  background-color: #1e2e1e;
+  transform: translateY(-2px);
+}
