@@ -255,9 +255,7 @@
     "collections_slider_8rWWVF": {
       "type": "collections-slider",
       "name": "Collection Slider",
-      "settings": {
-        "heading": "SHOP. GIFT. STYLE."
-      }
+      "settings": {}
     }
   },
   "order": [
