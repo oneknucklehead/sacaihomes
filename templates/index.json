@@ -9,13 +9,13 @@
  */
 {
   "sections": {
-    "1761478220e5156882": {
+    "1761479143745e5c33": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_1ae81cd_iAMAnt": {
-          "type": "ai_gen_block_1ae81cd",
+        "ai_gen_block_a63ad7e_tkxx8w": {
+          "type": "ai_gen_block_a63ad7e",
           "settings": {
-            "heading": "Shop by collection",
+            "heading": "SHOP. GIFT. STYLE.",
             "heading_alignment": "center",
             "collections": [
               "decor",
@@ -24,27 +24,32 @@
               "servings"
             ],
             "show_product_count": true,
-            "container_width": 1200,
-            "card_height": 400,
+            "max_width": 1200,
+            "section_padding": 40,
             "gap": 20,
-            "padding_top": 60,
-            "padding_bottom": 60,
+            "image_ratio": 100,
+            "text_alignment": "center",
             "background_color": "#FFFFFF",
             "heading_color": "#121212",
-            "heading_size": 36,
-            "collection_title_size": 24,
-            "card_border_radius": 8,
-            "nav_button_color": "#FFFFFF",
-            "nav_button_hover_color": "#F3F3F3",
-            "nav_button_icon_color": "#121212",
-            "show_dots": true,
-            "dot_color": "#121212"
+            "card_background": "#FFFFFF",
+            "title_color": "#121212",
+            "count_color": "#666666",
+            "button_background": "#FFFFFF",
+            "button_color": "#121212",
+            "button_border_color": "#121212",
+            "button_hover_background": "#121212",
+            "button_hover_color": "#FFFFFF",
+            "button_hover_border": "#121212",
+            "heading_size": 32,
+            "title_size": 18,
+            "count_size": 14,
+            "card_border_radius": 8
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_1ae81cd_iAMAnt"
+        "ai_gen_block_a63ad7e_tkxx8w"
       ],
       "settings": {}
     },
@@ -314,7 +319,7 @@
     }
   },
   "order": [
-    "1761478220e5156882",
+    "1761479143745e5c33",
     "image_banner",
     "hero_carousel_custom_gBxwwC",
     "rich_text",
