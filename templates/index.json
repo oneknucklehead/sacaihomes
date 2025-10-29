@@ -108,16 +108,16 @@
             "gap": 20,
             "image_ratio": 100,
             "text_alignment": "center",
-            "background_color": "#FFFFFF",
+            "background_color": "#ffffff",
             "heading_color": "#121212",
-            "card_background": "#FFFFFF",
+            "card_background": "#ffffff",
             "title_color": "#121212",
             "count_color": "#666666",
-            "button_background": "#FFFFFF",
+            "button_background": "#ffffff",
             "button_color": "#121212",
             "button_border_color": "#121212",
             "button_hover_background": "#121212",
-            "button_hover_color": "#FFFFFF",
+            "button_hover_color": "#ffffff",
             "button_hover_border": "#121212",
             "heading_size": 32,
             "title_size": 18,
@@ -132,6 +132,56 @@
       ],
       "name": "Collection slider Wrapper",
       "settings": {}
+    },
+    "image_banner_PaG766": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_6TKbbY": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image banner",
+            "heading_size": "h1"
+          }
+        },
+        "text_7fhQCg": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text_style": "body"
+          }
+        },
+        "buttons_qeGcgX": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_6TKbbY",
+        "text_7fhQCg",
+        "buttons_qeGcgX"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/pexels-designecologist-1239298.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
     },
     "rich_text": {
       "type": "rich-text",
@@ -296,56 +346,6 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    
-    "image_banner_PaG766": {
-      "type": "image-banner",
-      "blocks": {
-        "heading_6TKbbY": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "h1"
-          }
-        },
-        "text_7fhQCg": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
-          }
-        },
-        "buttons_qeGcgX": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Button label",
-            "button_link_1": "",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_6TKbbY",
-        "text_7fhQCg",
-        "buttons_qeGcgX"
-      ],
-      "name": "t:sections.image-banner.presets.name",
-      "settings": {
-        "image": "shopify://shop_images/pexels-designecologist-1239298.jpg",
-        "image_overlay_opacity": 0,
-        "image_height": "medium",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "",
-        "stack_images_on_mobile": true,
-        "mobile_content_alignment": "center",
-        "show_text_below": true
-      }
     }
   },
   "order": [
@@ -357,6 +357,6 @@
     "featured_collection",
     "collage",
     "video",
-    "multicolumn",
+    "multicolumn"
   ]
 }
