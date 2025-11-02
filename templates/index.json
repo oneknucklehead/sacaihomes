@@ -241,58 +241,12 @@
         "padding_bottom": 36
       }
     },
-    "custom_product_carousel_RHgUPX": {
-      "type": "custom_product_carousel",
-      "blocks": {
-        "tab_qNjFKX": {
-          "type": "tab",
-          "settings": {
-            "title": "Tab heading",
-            "collection": "",
-            "limit": 8
-          }
-        },
-        "tab_pHQj8C": {
-          "type": "tab",
-          "settings": {
-            "title": "Tab heading",
-            "collection": "",
-            "limit": 8
-          }
-        },
-        "tab_gT3cG9": {
-          "type": "tab",
-          "settings": {
-            "title": "Tab heading",
-            "collection": "",
-            "limit": 8
-          }
-        }
-      },
-      "block_order": [
-        "tab_qNjFKX",
-        "tab_pHQj8C",
-        "tab_gT3cG9"
-      ],
-      "name": "Product tabs",
+    "product_carousel_RLEwr9": {
+      "type": "product-carousel",
+      "name": "Product Carousel",
       "settings": {
-        "color": "",
-        "max_width": "",
-        "fullwidth": false,
-        "padding": "",
-        "margin": "",
-        "navigation": true,
-        "dots": true,
-        "infinite": true,
-        "autoplay": false,
-        "autoplay_speed": "10000",
-        "row": 1,
-        "columns": 4,
-        "column1440": 4,
-        "column1": 4,
-        "column2": 3,
-        "column3": 1,
-        "column4": 1
+        "heading": "Featured Products",
+        "collection": "decor"
       }
     },
     "collage": {
@@ -409,7 +363,7 @@
     "image_banner_PaG766",
     "rich_text",
     "featured_collection",
-    "custom_product_carousel_RHgUPX",
+    "product_carousel_RLEwr9",
     "collage",
     "video",
     "multicolumn"
