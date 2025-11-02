@@ -40,7 +40,8 @@
       assign ratio = 1
     endif
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+  {% comment %} <div class="card-wrapper product-card-wrapper underline-links-hover"> {% endcomment %}
+  <div class="card-wrapper product-card-wrapper underline-links-hover group relative">
     <div
       class="
         card card--{{ settings.card_style }}
@@ -106,6 +107,81 @@
             </div>
           </div>
         {%- endif -%}
+        <div
+          class="absolute bottom-0 left-0 w-full bg-white border-t border-gray-200 flex items-center justify-center divide-x divide-gray-300 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-300"
+        >
+          <form
+            method="post"
+            action="/cart/add"
+            class="w-1/2 text-center z-50"
+            onsubmit="
+                            event.preventDefault();
+              event.stopPropagation(); // ADDED: Stop click event from propagating to the product card link
+              fetch('/cart/add.js', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ id: {{ card_product.selected_or_first_available_variant.id }}, quantity: 1 })
+                            }).then(() => {
+                              const drawer = document.querySelector('cart-drawer');
+
+              if (drawer) drawer.open();
+                            });
+            "
+          >
+            <button
+              type="submit"
+              class="w-full py-4 text-sm font-medium tracking-wide text-gray-800 hover:text-yellow-600 transition"
+              data-handle="{{ card_product.handle }}"
+              data-variant-id="{{ card_product.selected_or_first_available_variant.id }}"
+            >
+              ADD TO BAG
+            </button>
+          </form>
+          {% comment %}
+                        <form
+                          action="/cart/add"
+
+            method="post"
+                          enctype="multipart/form-data"
+                          class="w-full py-4 text-sm font-medium tracking-wide text-gray-800 hover:text-yellow-600 transition form-addtocart"
+                          data-product-form
+                        >
+                          <input type="hidden" name="id" value="{{ variant.id }}">
+
+            <button
+                            class="js-btn-addtocart btn btn--add-to-cart"
+                            type="submit"
+                            value="Submit"
+                            title="{{ 'products.product.add_to_cart' |
+            t }}"
+                          >
+                            <span>{{ 'products.product.add_to_cart' | t }}</span>
+                          </button>
+                        </form>
+          {% endcomment %}
+
+          <form
+            method="post"
+            action="/cart/add"
+            class="w-1/2 text-center z-10"
+            onsubmit="
+                            event.preventDefault();
+              event.stopPropagation(); // ADDED: Stop click event from propagating to the product card link
+              fetch('/cart/add.js', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ id: {{ card_product.selected_or_first_available_variant.id }}, quantity: 1 })
+                            }).then(() => { window.location.href = '/cart'; });
+            "
+          >
+            <button
+              type="submit"
+              class="w-full py-4 text-sm font-medium tracking-wide text-gray-800 hover:text-yellow-600 transition"
+            >
+              BUY NOW
+            </button>
+          </form>
+        </div>
         <div class="card__content">
           <div class="card__information">
             <h3
@@ -622,3 +698,46 @@
     </div>
   </div>
 {%- endif -%}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-add-to-cart-ajax]').forEach((button) => {
+      button.addEventListener('click', async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const productHandle = button.dataset.handle;
+        const variantId = button.dataset.variantId;
+
+        if (!variantId) return;
+
+        try {
+          // Add to cart via AJAX
+          await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              id: variantId,
+              quantity: 1,
+            }),
+          });
+
+          // Refresh cart data & open cart drawer (Dawn theme)
+          const cartDrawer = document.querySelector('cart-drawer');
+          if (cartDrawer && typeof cartDrawer.open === 'function') {
+            cartDrawer.open();
+          } else {
+            // fallback if drawer API not available
+            document.body.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+            const drawer = document.querySelector('[id^="CartDrawer"]');
+            if (drawer) drawer.classList.add('is-active');
+          }
+        } catch (error) {
+          console.error('Error adding to cart:', error);
+        } finally {
+          button.disabled = false;
+          button.classList.remove('opacity-70');
+        }
+      });
+    });
+  });
+</script>
