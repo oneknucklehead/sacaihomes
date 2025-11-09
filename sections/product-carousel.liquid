@@ -1,9 +1,11 @@
 {% comment %}
   Product Carousel Section
-  Uses Slick Carousel + TailwindCSS
-  Displays a row of products with prev/next arrows on ends.
+  - Uses Slick Carousel + TailwindCSS
+  - Custom SVG arrows (#273A27)
+  - Autoplay, dots navigation, adjustable speed
 {% endcomment %}
 
+<!-- Slick Carousel CSS -->
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
@@ -14,25 +16,36 @@
 >
 
 <div class="product-carousel-section bg-white py-10">
-  <div class="container mx-auto px-4">
+  <div class="mx-auto px-4">
     {% if section.settings.heading != blank %}
-      <h2 class="text-2xl font-semibold mb-6 text-center">{{ section.settings.heading }}</h2>
+      <h2 class="text-2xl font-semibold mb-6 text-center text-[#273A27]">
+        {{ section.settings.heading }}
+      </h2>
     {% endif %}
 
     <div class="relative">
       <!-- Prev Button -->
       <button
         type="button"
-        class="slick-prev absolute -left-8 top-1/2 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center z-10"
+        class="carousel-prev absolute -left-8 top-1/2 transform -translate-y-1/2 bg-white shadow-md hover:shadow-lg border border-gray-200 rounded-full w-10 h-10 flex items-center justify-center z-10"
       >
-        ❮
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="#273A27"
+          class="w-5 h-5"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
       </button>
 
       <!-- Carousel -->
-      <div class="product-carousel">
+      <div class="product-carousel opacity-0 transition-opacity duration-300">
         {% for product in collections[section.settings.collection].products %}
-          <div class="px-2">
-            <div class="border rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition">
+          <div class="px-3">
+            <div class="border rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300">
               <a href="{{ product.url }}" class="block">
                 <img
                   src="{{ product.featured_image | img_url: '400x400' }}"
@@ -40,7 +53,7 @@
                   class="w-full h-64 object-cover"
                 >
                 <div class="p-4 text-center">
-                  <h3 class="text-base font-medium">{{ product.title }}</h3>
+                  <h3 class="text-base font-medium text-[#273A27]">{{ product.title }}</h3>
                   <p class="text-gray-700 mt-1">{{ product.price | money }}</p>
                 </div>
               </a>
@@ -52,41 +65,50 @@
       <!-- Next Button -->
       <button
         type="button"
-        class="slick-next absolute -right-8 top-1/2 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center z-10"
+        class="carousel-next absolute -right-8 top-1/2 transform -translate-y-1/2 bg-white shadow-md hover:shadow-lg border border-gray-200 rounded-full w-10 h-10 flex items-center justify-center z-10"
       >
-        ❯
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="#273A27"
+          class="w-5 h-5"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
       </button>
     </div>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" defer></script>
-
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const $carousel = $('.product-carousel');
+  document.addEventListener("DOMContentLoaded", function () {
+    const $carousel = $(".product-carousel");
 
+  $carousel.on("init", function () {
+    // Reveal carousel after Slick is ready
+    $carousel.removeClass("opacity-0").addClass("opacity-100");
+  });
     $carousel.slick({
       slidesToShow: 3,
-      slidesToScroll: 1,
+      slidesToScroll: 3,
       infinite: true,
+      dots: true,
+      autoplay: true,
+      autoplaySpeed: {{ section.settings.autoplay_speed | default: 3000 }},
+      speed: {{ section.settings.transition_speed | default: 500 }},
       arrows: true,
-      prevArrow: $('.slick-prev'),
-      nextArrow: $('.slick-next'),
-      dots: false,
+      prevArrow: $(".carousel-prev"),
+      nextArrow: $(".carousel-next"),
       responsive: [
         {
           breakpoint: 1024,
-          settings: {
-            slidesToShow: 2,
-          },
+          settings: { slidesToShow: 2 },
         },
         {
           breakpoint: 640,
-          settings: {
-            slidesToShow: 1,
-          },
+          settings: { slidesToShow: 1 },
         },
       ],
     });
@@ -107,6 +129,24 @@
       "type": "collection",
       "id": "collection",
       "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay Speed (ms)",
+      "min": 1000,
+      "max": 9500,
+      "step": 500,
+      "default": 3000
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "label": "Transition Speed (ms)",
+      "min": 200,
+      "max": 2000,
+      "step": 100,
+      "default": 500
     }
   ],
   "presets": [

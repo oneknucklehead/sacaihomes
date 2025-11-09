@@ -39,6 +39,7 @@
       {
         "type": "color_scheme_group",
         "id": "color_schemes",
+       
         "definition": [
           {
             "type": "color",
@@ -56,7 +57,7 @@
             "type": "color",
             "id": "text",
             "label": "t:settings_schema.colors.settings.text.label",
-            "default": "#121212"
+            "default": "#FFFFFF"
           },
           {
             "type": "color",
