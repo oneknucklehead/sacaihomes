@@ -30,9 +30,11 @@
     </div>
 
     <!-- Navigation Buttons -->
-    <div class="swiper-button-next text-white"></div>
-    <div class="swiper-button-prev text-white"></div>
-    <div class="swiper-pagination"></div>
+    {% comment %}
+      <div class="swiper-button-next text-white"></div>
+      <div class="swiper-button-prev text-white"></div>
+    {% endcomment %}
+    <div class="swiper-pagination  custom-pagination"></div>
   </div>
 </section>
 
@@ -56,17 +58,61 @@
         el: '.swiper-pagination',
         clickable: true,
       },
-      navigation: {
+      {% comment %} navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
-      },
+      }, {% endcomment %}
       effect: 'fade',
       fadeEffect: { crossFade: true },
       speed: 1000,
     });
   });
 </script>
+<style>
+  /* Ensure positioning context */
+  .swiper.mySwiper,
+  .swiper.mySwiper .swiper-wrapper {
+    position: relative !important;
+  }
 
+  /* Position pagination bottom-right */
+  .swiper-pagination.custom-pagination {
+    position: absolute !important;
+    right: 5rem !important; /* move horizontally from right edge */
+    bottom: 5rem !important; /* adjust vertical position — increase to lift higher */
+    left: auto !important;
+    transform: none !important;
+    width: auto !important;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    z-index: 50;
+  }
+
+  /* Pagination bullets style */
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    border: 2px solid white;
+    background: transparent;
+    opacity: 1;
+    transition: all 0.3s ease;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: white;
+    border-color: white;
+    transform: scale(1.1);
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .swiper-pagination.custom-pagination {
+      right: 1.25rem !important; /* 20px */
+      bottom: 3.5rem !important; /* 56px */
+    }
+  }
+</style>
 {% schema %}
 {
   "name": "Hero Carousel",
