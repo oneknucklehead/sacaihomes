@@ -66,8 +66,8 @@
             "image": "shopify://shop_images/pexels-designecologist-1005058.jpg",
             "heading": "Luxury You Can Feel",
             "subheading": "Discover premium home décor",
-            "button_label": "Shop Now",
-            "button_link": ""
+            "button_label": "Decor",
+            "button_link": "shopify://collections/decor"
           }
         },
         "slide_8pfbEf": {
@@ -76,8 +76,8 @@
             "image": "shopify://shop_images/pexels-designecologist-1248582.jpg",
             "heading": "Luxury You Can Feel",
             "subheading": "Discover premium home décor",
-            "button_label": "Shop Now",
-            "button_link": ""
+            "button_label": "Lighting",
+            "button_link": "shopify://collections/lighting"
           }
         }
       },
@@ -246,7 +246,9 @@
       "name": "Product Carousel",
       "settings": {
         "heading": "Featured Products",
-        "collection": "decor"
+        "collection": "decor",
+        "autoplay_speed": 3000,
+        "transition_speed": 500
       }
     },
     "collage": {
