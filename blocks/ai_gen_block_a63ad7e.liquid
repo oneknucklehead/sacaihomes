@@ -2,205 +2,230 @@
   @prompt
     make me a collection list slider that shows 3 collections at a tmie, the sliding functionality is not smooth, make it infinitely scrollable, but i dont want it to scroll back entirely when the sliider reaches the ed of the collection list, please don't make it automatically slide
     , just make the arrows at the end of the slide area
-    and make it responsive 
+    and make it responsive
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .ai-collection-slider-{{ ai_gen_id }} {
-    width: 100%;
-    overflow: hidden;
-    padding: {{ block.settings.section_padding }}px 0;
-    background-color: {{ block.settings.background_color }};
-  }
+    .ai-collection-slider-{{ ai_gen_id }} {
+      width: 100%;
+      overflow: hidden;
+      padding: {{ block.settings.section_padding }}px 0;
+      background-color: {{ block.settings.background_color }};
+    }
 
-  .ai-collection-slider__header-{{ ai_gen_id }} {
-    text-align: {{ block.settings.heading_alignment }};
-    margin-bottom: 32px;
-    padding: 0 20px;
-  }
+    .ai-collection-slider__header-{{ ai_gen_id }} {
+      text-align: {{ block.settings.heading_alignment }};
+      margin-bottom: 32px;
+      padding: 0 20px;
+    }
 
-  .ai-collection-slider__heading-{{ ai_gen_id }} {
-    font-size: {{ block.settings.heading_size }}px;
-    color: {{ block.settings.heading_color }};
-    margin: 0;
-  }
+    .ai-collection-slider__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size }}px;
+      color: {{ block.settings.heading_color }};
+      margin: 0;
+    }
 
-  .ai-collection-slider__container-{{ ai_gen_id }} {
-    position: relative;
-    max-width: {{ block.settings.max_width }}px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
+    .ai-collection-slider__container-{{ ai_gen_id }} {
+      position: relative;
+      max-width: {{ block.settings.max_width }}px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-  .ai-collection-slider__viewport-{{ ai_gen_id }} {
-    overflow: hidden;
-    position: relative;
-  }
+    .ai-collection-slider__viewport-{{ ai_gen_id }} {
+      overflow: hidden;
+      position: relative;
+    }
 
-  .ai-collection-slider__track-{{ ai_gen_id }} {
-    display: flex;
-    gap: {{ block.settings.gap }}px;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+    .ai-collection-slider__track-{{ ai_gen_id }} {
+      display: flex;
+      gap: {{ block.settings.gap }}px;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-  .ai-collection-slider__slide-{{ ai_gen_id }} {
-    flex: 0 0 calc((100% - ({{ block.settings.gap }}px * 2)) / 3);
-    min-width: 0;
-  }
+    .ai-collection-slider__slide-{{ ai_gen_id }} {
+      flex: 0 0 calc((100% - ({{ block.settings.gap }}px * 2)) / 3);
+      min-width: 0;
+    }
 
-  .ai-collection-slider__card-{{ ai_gen_id }} {
-    position: relative;
-    display: block;
-    text-decoration: none;
-    border-radius: {{ block.settings.card_border_radius }}px;
-    overflow: hidden;
-    height: 100%;
-  }
+    .ai-collection-slider__card-{{ ai_gen_id }} {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      border-radius: {{ block.settings.card_border_radius }}px;
+      overflow: hidden;
+      height: 100%;
+    }
 
-  .ai-collection-slider__image-wrapper-{{ ai_gen_id }} {
-    position: relative;
-    width: 100%;
-    padding-bottom: {{ block.settings.image_ratio }}%;
-    overflow: hidden;
-    background-color: #f4f4f4;
-  }
+    .ai-collection-slider__image-wrapper-{{ ai_gen_id }} {
+      position: relative;
+      width: 100%;
+      padding-bottom: {{ block.settings.image_ratio }}%;
+      overflow: hidden;
+      background-color: #f4f4f4;
+    }
 
-  .ai-collection-slider__image-{{ ai_gen_id }} {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
+    .ai-collection-slider__image-{{ ai_gen_id }} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
 
-  .ai-collection-slider__card-{{ ai_gen_id }}:hover .ai-collection-slider__image-{{ ai_gen_id }} {
-    transform: scale(1.05);
-  }
+    .ai-collection-slider__card-{{ ai_gen_id }}:hover .ai-collection-slider__image-{{ ai_gen_id }} {
+      transform: scale(1.05);
+    }
 
-  .ai-collection-slider__placeholder-{{ ai_gen_id }} {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    .ai-collection-slider__placeholder-{{ ai_gen_id }} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f4f4f4;
+    }
+
+    .ai-collection-slider__placeholder-{{ ai_gen_id }} svg {
+      width: 60%;
+      height: 60%;
+      opacity: 0.3;
+    }
+
+    .ai-collection-slider__content-{{ ai_gen_id }} {
+      padding: 16px;
+      text-align: {{ block.settings.text_alignment }};
+      background-color: {{ block.settings.card_background }};
+    }
+
+    .ai-collection-slider__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size }}px;
+      color: {{ block.settings.title_color }};
+      margin: 0 0 8px;
+      font-weight: 600;
+    }
+
+    .ai-collection-slider__title-{{ ai_gen_id }} {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: #f4f4f4;
-  }
-
-  .ai-collection-slider__placeholder-{{ ai_gen_id }} svg {
-    width: 60%;
-    height: 60%;
-    opacity: 0.3;
-  }
-
-  .ai-collection-slider__content-{{ ai_gen_id }} {
-    padding: 16px;
-    text-align: {{ block.settings.text_alignment }};
-    background-color: {{ block.settings.card_background }};
-  }
-
-  .ai-collection-slider__title-{{ ai_gen_id }} {
+    justify-content: flex-start;
     font-size: {{ block.settings.title_size }}px;
     color: {{ block.settings.title_color }};
     margin: 0 0 8px;
     font-weight: 600;
+    gap: 6px;
   }
 
-  .ai-collection-slider__count-{{ ai_gen_id }} {
-    font-size: {{ block.settings.count_size }}px;
-    color: {{ block.settings.count_color }};
-    margin: 0;
+  .ai-collection-slider__title-{{ ai_gen_id }} .title-text {
+    flex-shrink: 0;
   }
 
-  .ai-collection-slider__controls-{{ ai_gen_id }} {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    z-index: 10;
+  .ai-collection-slider__title-{{ ai_gen_id }} .title-arrow {
+    font-size: 1.2em;
+    color: {{ block.settings.title_color }};
+    transition: transform 0.3s ease;
   }
 
-  .ai-collection-slider__button-{{ ai_gen_id }} {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid {{ block.settings.button_border_color }};
-    background-color: {{ block.settings.button_background }};
-    color: {{ block.settings.button_color }};
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    pointer-events: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  .ai-collection-slider__card-{{ ai_gen_id }}:hover .title-arrow {
+    transform: translateX(4px);
   }
 
-  .ai-collection-slider__button-{{ ai_gen_id }}:hover {
-    background-color: {{ block.settings.button_hover_background }};
-    color: {{ block.settings.button_hover_color }};
-    border-color: {{ block.settings.button_hover_border }};
-  }
-
-  .ai-collection-slider__button-{{ ai_gen_id }}:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
-  .ai-collection-slider__button-{{ ai_gen_id }} svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  @media screen and (max-width: 989px) {
-    .ai-collection-slider__slide-{{ ai_gen_id }} {
-      flex: 0 0 calc((100% - {{ block.settings.gap }}px) / 2);
-    }
-
-    .ai-collection-slider__button-{{ ai_gen_id }} {
-      width: 40px;
-      height: 40px;
-    }
-
-    .ai-collection-slider__button-{{ ai_gen_id }} svg {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .ai-collection-slider__slide-{{ ai_gen_id }} {
-      flex: 0 0 100%;
-    }
-
-    .ai-collection-slider__heading-{{ ai_gen_id }} {
-      font-size: calc({{ block.settings.heading_size }}px * 0.8);
-    }
-
-    .ai-collection-slider__button-{{ ai_gen_id }} {
-      width: 36px;
-      height: 36px;
-    }
-
-    .ai-collection-slider__button-{{ ai_gen_id }} svg {
-      width: 14px;
-      height: 14px;
+    .ai-collection-slider__count-{{ ai_gen_id }} {
+      font-size: {{ block.settings.count_size }}px;
+      color: {{ block.settings.count_color }};
+      margin: 0;
     }
 
     .ai-collection-slider__controls-{{ ai_gen_id }} {
-      left: 10px;
-      right: 10px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 10;
     }
-  }
+
+    .ai-collection-slider__button-{{ ai_gen_id }} {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid {{ block.settings.button_border_color }};
+      background-color: {{ block.settings.button_background }};
+      color: {{ block.settings.button_color }};
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      pointer-events: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .ai-collection-slider__button-{{ ai_gen_id }}:hover {
+      background-color: {{ block.settings.button_hover_background }};
+      color: {{ block.settings.button_hover_color }};
+      border-color: {{ block.settings.button_hover_border }};
+    }
+
+    .ai-collection-slider__button-{{ ai_gen_id }}:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .ai-collection-slider__button-{{ ai_gen_id }} svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media screen and (max-width: 989px) {
+      .ai-collection-slider__slide-{{ ai_gen_id }} {
+        flex: 0 0 calc((100% - {{ block.settings.gap }}px) / 2);
+      }
+
+      .ai-collection-slider__button-{{ ai_gen_id }} {
+        width: 40px;
+        height: 40px;
+      }
+
+      .ai-collection-slider__button-{{ ai_gen_id }} svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .ai-collection-slider__slide-{{ ai_gen_id }} {
+        flex: 0 0 100%;
+      }
+
+      .ai-collection-slider__heading-{{ ai_gen_id }} {
+        font-size: calc({{ block.settings.heading_size }}px * 0.8);
+      }
+
+      .ai-collection-slider__button-{{ ai_gen_id }} {
+        width: 36px;
+        height: 36px;
+      }
+
+      .ai-collection-slider__button-{{ ai_gen_id }} svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .ai-collection-slider__controls-{{ ai_gen_id }} {
+        left: 10px;
+        right: 10px;
+      }
+    }
 {% endstyle %}
 
 <collection-slider-{{ ai_gen_id }} class="ai-collection-slider-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
@@ -234,7 +259,10 @@
                   {% endif %}
                 </div>
                 <div class="ai-collection-slider__content-{{ ai_gen_id }}">
-                  <h3 class="ai-collection-slider__title-{{ ai_gen_id }}">{{ collection.title }}</h3>
+                  <h3 class="ai-collection-slider__title-{{ ai_gen_id }}">
+                    <span class="title-text">{{ collection.title }}</span>
+                    <span class="title-arrow">›</span>
+                  </h3>
                   {% if block.settings.show_product_count %}
                     <p class="ai-collection-slider__count-{{ ai_gen_id }}">
                       {{ collection.products_count }}
@@ -277,7 +305,15 @@
         data-prev
         aria-label="Previous slide"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
@@ -286,7 +322,15 @@
         data-next
         aria-label="Next slide"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
       </button>
