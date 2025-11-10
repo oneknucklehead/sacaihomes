@@ -9,6 +9,49 @@
  */
 {
   "sections": {
+    "1762762915d5e346fe": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_3b8eae4_BT6iLV": {
+          "type": "ai_gen_block_3b8eae4",
+          "settings": {
+            "heading": "Shop by collection",
+            "collections": [
+              "decor",
+              "frontpage",
+              "lighting",
+              "og-collection",
+              "sculptures",
+              "servings"
+            ],
+            "show_description": true,
+            "container_width": 1200,
+            "gap": 20,
+            "image_ratio": 100,
+            "text_alignment": "left",
+            "heading_alignment": "center",
+            "heading_size": 32,
+            "heading_color": "#121212",
+            "card_border_radius": 0,
+            "card_background": "#ffffff",
+            "title_size": 18,
+            "title_color": "#121212",
+            "description_size": 14,
+            "description_color": "#666666",
+            "button_size": 45,
+            "button_background": "#121212",
+            "button_hover_background": "#000000",
+            "button_color": "#ffffff",
+            "background_color": "#f3f3f3"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_3b8eae4_BT6iLV"
+      ],
+      "settings": {}
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -359,6 +402,7 @@
     }
   },
   "order": [
+    "1762762915d5e346fe",
     "image_banner",
     "hero_carousel_custom_gBxwwC",
     "1761479143745e5c33",
