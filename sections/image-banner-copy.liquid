@@ -132,7 +132,7 @@
             </div>
           {%- when 'buttons' -%}
             <div
-              class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %} font-bold text-3xl uppercase"
+              class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %} font-bold uppercase"
               {{ block.shopify_attributes }}
             >
               {%- if block.settings.button_label_1 != blank -%}
