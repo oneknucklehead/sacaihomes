@@ -131,6 +131,39 @@
       ],
       "settings": {}
     },
+    "gifting_section_carousel_48EDLF": {
+      "type": "gifting-section-carousel",
+      "name": "Gifting collection slider",
+      "settings": {
+        "hero_image": "shopify://shop_images/pexels-ulrike-hassler-159445-1484981.jpg",
+        "hero_heading": "Wedding Gifting",
+        "hero_subtext": "Beautifully packaged, perfectly picked – Celebrate the new beginning with thoughtfully curated wedding gifts.",
+        "explore_collection": "decor",
+        "button_label": "EXPLORE",
+        "collections": [
+          "decor",
+          "lighting",
+          "sculptures",
+          "servings"
+        ],
+        "show_description": true,
+        "container_width": 1400,
+        "gap": 20,
+        "image_ratio": 80,
+        "card_border_radius": 8,
+        "text_alignment": "center",
+        "heading_size": 34,
+        "heading_color": "#6b5b4e",
+        "subtext_size": 14,
+        "subtext_color": "#555555",
+        "title_size": 16,
+        "title_color": "#273A27",
+        "description_size": 13,
+        "description_color": "#666666",
+        "card_background": "#ffffff",
+        "background_color": "#f3f2ee"
+      }
+    },
     "1761479143745e5c33": {
       "type": "_blocks",
       "blocks": {
@@ -290,9 +323,7 @@
       "name": "Product Carousel",
       "settings": {
         "heading": "Featured Products",
-        "collection": "decor",
-        "autoplay_speed": 3000,
-        "transition_speed": 500
+        "collection": "decor"
       }
     },
     "collage": {
@@ -406,6 +437,7 @@
     "image_banner",
     "hero_carousel_custom_gBxwwC",
     "1762762915d5e346fe",
+    "gifting_section_carousel_48EDLF",
     "1761479143745e5c33",
     "image_banner_PaG766",
     "rich_text",
