@@ -273,6 +273,9 @@
   .mb-1 {
     margin-bottom: calc(var(--spacing) * 1);
   }
+  .mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
@@ -455,6 +458,9 @@
   }
   .bg-\[\#1E2E1E\] {
     background-color: #1E2E1E;
+  }
+  .bg-\[\#273A27\] {
+    background-color: #273A27;
   }
   .bg-\[\#E9E6DD\] {
     background-color: #E9E6DD;
