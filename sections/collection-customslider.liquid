@@ -5,103 +5,109 @@
   - Infinite scroll
   - No autoplay
 {% endcomment %}
-
-<section class="collection-slider py-10 bg-white">
-  <div class="max-w-7xl mx-auto px-4">
-    {% if section.settings.heading != blank %}
-      <h2 class="text-3xl font-bold text-center mb-8">{{ section.settings.heading }}</h2>
-    {% endif %}
-
-    <div class="relative">
-      <div class="collection-slider__track">
-        {% for collection in section.settings.collections %}
-          <div class="px-3">
-            <a
-              href="{{ collection.url }}"
-              class="block bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-transform duration-300"
-            >
-              {% if collection.featured_image %}
-                <div class="relative pb-[100%] bg-gray-100">
-                  <img
-                    src="{{ collection.featured_image | image_url: width: 600 }}"
-                    alt="{{ collection.title | escape }}"
-                    class="absolute top-0 left-0 w-full h-full object-cover"
-                    loading="lazy"
-                  >
-                </div>
-              {% else %}
-                <div class="bg-gray-200 h-48 flex items-center justify-center">
-                  {{ 'collection-1' | placeholder_svg_tag }}
-                </div>
-              {% endif %}
-
-              <div class="p-4 text-center">
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">{{ collection.title }}</h3>
-                {% if section.settings.show_product_count %}
-                  <p class="text-sm text-gray-500">
-                    {{ collection.products_count }}
-                    {% if collection.products_count == 1 %}
-                      {{ collection.products_count }} product
-                    {% else %}
-                      {{ collection.products_count }} products
-                    {% endif %}
-                  </p>
-                {% endif %}
-              </div>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-
-      <!-- Arrows -->
-      <button
-        type="button"
-        class="slick-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-300 rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-gray-100"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      <button
-        type="button"
-        class="slick-next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-300 rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-gray-100"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
-  </div>
-</section>
 {{ 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css' | stylesheet_tag }}
 {{ 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css' | stylesheet_tag }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    $('.collection-slider__track').slick({
-      slidesToShow: 3,
-      slidesToScroll: 3,
-      infinite: true,
-      arrows: true,
-      prevArrow: $('.slick-prev'),
-      nextArrow: $('.slick-next'),
-      autoplay: false,
-      speed: 600,
-      cssEase: 'ease',
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: { slidesToShow: 2, slidesToScroll: 2 },
-        },
-        {
-          breakpoint: 640,
-          settings: { slidesToShow: 1, slidesToScroll: 1 },
-        },
-      ],
-    });
-  });
+  <section class="collection-slider py-10 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      {% if section.settings.heading != blank %}
+        <h2 class="text-3xl font-bold text-center mb-8">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      <div class="relative">
+        <div class="collection-slider__track">
+          {% for collection in section.settings.collections %}
+            <div class="px-3">
+              <a
+                href="{{ collection.url }}"
+                class="block bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-transform duration-300"
+              >
+                {% if collection.featured_image %}
+                  <div class="relative pb-[100%] bg-gray-100">
+                    <img
+                      src="{{ collection.featured_image | image_url: width: 600 }}"
+                      alt="{{ collection.title | escape }}"
+                      class="absolute top-0 left-0 w-full h-full object-cover"
+                      loading="lazy"
+                    >
+                  </div>
+                {% else %}
+                  <div class="bg-gray-200 h-48 flex items-center justify-center">
+                    {{ 'collection-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+
+                <div class="p-4 text-center">
+                  <h3 class="text-lg font-semibold text-gray-800 mb-1">{{ collection.title }}</h3>
+                  {% if section.settings.show_product_count %}
+                    <p class="text-sm text-gray-500">
+                      {{ collection.products_count }}
+                      {% if collection.products_count == 1 %}
+                        {{ collection.products_count }} product
+                      {% else %}
+                        {{ collection.products_count }} products
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Arrows -->
+        <button
+          type="button"
+          class="slick-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-300 rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-gray-100"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="slick-next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-300 rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-gray-100"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+    function initCollectionSlider() {
+      const $slider = $('.collection-slider__track');
+      if ($slider.hasClass('slick-initialized')) return;
+
+      $slider.slick({
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        arrows: true,
+        prevArrow: $('.slick-prev'),
+        nextArrow: $('.slick-next'),
+        autoplay: false,
+        speed: 600,
+        cssEase: 'ease',
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: { slidesToShow: 2, slidesToScroll: 2 },
+          },
+          {
+            breakpoint: 640,
+            settings: { slidesToShow: 1, slidesToScroll: 1 },
+          },
+        ],
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initCollectionSlider);
+    document.addEventListener('shopify:section:load', initCollectionSlider);
 </script>
 
 {% schema %}

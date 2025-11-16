@@ -1,0 +1,162 @@
+{% comment %}
+  Wedding Gifting Carousel Section
+  Tailwind + SwiperJS
+  Left: Hero Image
+  Right: Product Carousel + Headings + Button
+{% endcomment %}
+
+<section class="w-full py-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-6">
+    <!-- LEFT STATIC IMAGE -->
+    <div>
+      {% if section.settings.left_image %}
+        <img
+          src="{{ section.settings.left_image | img_url: '2000x' }}"
+          alt="Gifting Image"
+          class="w-full h-auto object-cover rounded-lg"
+        >
+      {% endif %}
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="relative w-full">
+      <!-- PRODUCT CAROUSEL -->
+      <div class="swiper giftingSwiper">
+        <div class="swiper-wrapper">
+          {% for product in section.settings.products %}
+            <div class="swiper-slide !w-auto">
+              <a href="{{ product.url }}" class="block group">
+                <div class="w-72 mx-auto">
+                  <!-- PRODUCT IMAGE WITH HOVER EFFECT -->
+                  <div class="relative w-full overflow-hidden rounded-lg shadow-sm">
+                    {% assign first_image = product.images[0] %}
+                    {% assign second_image = product.images[1] %}
+
+                    <img
+                      src="{{ first_image | img_url: '600x' }}"
+                      class="w-full transition-opacity duration-300 group-hover:opacity-0"
+                      alt="{{ product.title }}"
+                    >
+
+                    {% if second_image %}
+                      <img
+                        src="{{ second_image | img_url: '600x' }}"
+                        class="w-full absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        alt="{{ product.title }}"
+                      >
+                    {% endif %}
+                  </div>
+
+                  <!-- PRODUCT TITLE -->
+                  <h3 class="text-center mt-4 text-lg font-medium tracking-wide">
+                    {{ product.title }}
+                  </h3>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- ARROWS -->
+      <div class="absolute top-1/2 left-0 transform -translate-y-1/2 z-10">
+        <button class="swiper-button-prev gifting-prev text-gray-800 hover:text-black text-3xl font-light">
+          &#10094;
+        </button>
+      </div>
+      <div class="absolute top-1/2 right-0 transform -translate-y-1/2 z-10">
+        <button class="swiper-button-next gifting-next text-gray-800 hover:text-black text-3xl font-light">
+          &#10095;
+        </button>
+      </div>
+
+      <!-- TEXT CONTENT BELOW -->
+      <div class="mt-10 text-center">
+        <h2 class="text-3xl font-serif tracking-wide mb-4">
+          {{ section.settings.heading }}
+        </h2>
+
+        <p class="text-gray-600 max-w-md mx-auto leading-relaxed mb-6">
+          {{ section.settings.subtext }}
+        </p>
+
+        {% if section.settings.collection %}
+          <a
+            href="{{ section.settings.collection.url }}"
+            class="border border-gray-800 px-8 py-3 rounded-full text-sm tracking-wider hover:bg-gray-900 hover:text-white transition-all duration-300"
+          >
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SwiperJS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    new Swiper('.giftingSwiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      centeredSlides: true,
+      navigation: {
+        nextEl: '.gifting-next',
+        prevEl: '.gifting-prev',
+      },
+      breakpoints: {
+        640: { slidesPerView: 1.3 },
+        768: { slidesPerView: 1.7 },
+        1024: { slidesPerView: 2.1 },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Wedding Gifting Carousel",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left Section Image"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Select Products for Carousel"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Wedding Gifting"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Beautifully packaged, perfectly picked – Celebrate the new beginning with thoughtfully curated wedding gifts."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "EXPLORE"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Choose Collection for Explore Button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wedding Gifting Carousel"
+    }
+  ]
+}
+{% endschema %}

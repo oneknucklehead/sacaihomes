@@ -18,18 +18,16 @@
   .ai-collection-slider__container-{{ ai_gen_id }} {
     max-width: {{ block.settings.container_width }}px;
     margin: 0 auto;
-    padding: 0 20px;
+    {% comment %} padding: 0 20px; {% endcomment %}
   }
 
   .ai-collection-slider__header-{{ ai_gen_id }} {
     text-align: {{ block.settings.heading_alignment }};
-    margin-bottom: 30px;
   }
 
   .ai-collection-slider__heading-{{ ai_gen_id }} {
     font-size: {{ block.settings.heading_size }}px;
     color: {{ block.settings.heading_color }};
-    margin: 0;
   }
 
   .ai-collection-slider__slider-container-{{ ai_gen_id }} {
@@ -113,8 +111,7 @@
 
   .ai-collection-slider__title-{{ ai_gen_id }} {
     font-size: {{ block.settings.title_size }}px;
-    color: {{ block.settings.title_color }};
-    margin: 0 0 5px;
+    color: #273A27;
   }
 
   .ai-collection-slider__description-{{ ai_gen_id }} {
@@ -129,7 +126,7 @@
     height: {{ block.settings.button_size }}px;
     border-radius: 50%;
     background-color: {{ block.settings.button_background }};
-    color: {{ block.settings.button_color }};
+    color: #273A27;
     border: none;
     cursor: pointer;
     display: flex;
@@ -186,20 +183,32 @@
 <collection-slider-{{ ai_gen_id }} class="ai-collection-slider-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-collection-slider__container-{{ ai_gen_id }}">
     {% if block.settings.heading != blank %}
-      <div class="ai-collection-slider__header-{{ ai_gen_id }}">
+      <div class="my-20 ai-collection-slider__header-{{ ai_gen_id }}">
         <h2 class="ai-collection-slider__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
       </div>
     {% endif %}
 
     {% if block.settings.collections != blank and block.settings.collections.size > 0 %}
-      <div class="ai-collection-slider__slider-container-{{ ai_gen_id }}">
+      <div class="mb-20 ai-collection-slider__slider-container-{{ ai_gen_id }}">
         <button
-          class="ai-collection-slider__button-{{ ai_gen_id }}"
+          {% comment %} class="ai-collection-slider__button-{{ ai_gen_id }}" {% endcomment %}
+          class="cursor-pointer flex justify-center items-center rounded-full"
           data-prev
           aria-label="Previous collections"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="80"
+            height="80"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="0.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-left-icon lucide-chevron-left"
+          >
+            <path d="m15 18-6-6 6-6"/>
           </svg>
         </button>
 
@@ -225,7 +234,26 @@
                     {% endif %}
                   </div>
                   <div class="ai-collection-slider__content-{{ ai_gen_id }}">
-                    <h3 class="ai-collection-slider__title-{{ ai_gen_id }}">{{ collection.title }}</h3>
+                    <div class=" flex items-center justify-center gap-2">
+                      <h3 class="uppercase font-bold tracking-tight">
+                        {{ collection.title }}
+                      </h3>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-chevron-right-icon lucide-chevron-right text-[#273A27]"
+                      >
+                        <path d="m9 18 6-6-6-6"/>
+                      </svg>
+                    </div>
+
                     {% if block.settings.show_description and collection.description != blank %}
                       <p class="ai-collection-slider__description-{{ ai_gen_id }}">
                         {{ collection.description | strip_html | truncate: 100 }}
@@ -239,12 +267,24 @@
         </div>
 
         <button
-          class="ai-collection-slider__button-{{ ai_gen_id }}"
+          {% comment %} class="ai-collection-slider__button-{{ ai_gen_id }}" {% endcomment %}
+          class="cursor-pointer flex justify-center items-center rounded-full"
           data-next
           aria-label="Next collections"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="80"
+            height="80"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="0.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-right-icon lucide-chevron-right"
+          >
+            <path d="m9 18 6-6-6-6"/>
           </svg>
         </button>
       </div>
