@@ -150,6 +150,7 @@
         "heading_size": 34,
         "heading_color": "#273a27",
         "card_border_radius": 0,
+        "card_item_padding": 100,
         "card_background": "#ffffff",
         "background_color": "#ffffff",
         "text_alignment": "center"
@@ -222,8 +223,8 @@
         "buttons_qeGcgX": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Lorem Ipsum",
-            "button_link_1": "",
+            "button_label_1": "Decor",
+            "button_link_1": "shopify://collections/decor",
             "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "",
