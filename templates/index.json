@@ -252,6 +252,14 @@
         "show_text_below": true
       }
     },
+    "product_carousel_RLEwr9": {
+      "type": "product-carousel",
+      "name": "Product Carousel",
+      "settings": {
+        "heading": "Featured Products",
+        "collection": "decor"
+      }
+    },
     "rich_text": {
       "type": "rich-text",
       "blocks": {
@@ -308,14 +316,6 @@
         "swipe_on_mobile": true,
         "padding_top": 28,
         "padding_bottom": 36
-      }
-    },
-    "product_carousel_RLEwr9": {
-      "type": "product-carousel",
-      "name": "Product Carousel",
-      "settings": {
-        "heading": "Featured Products",
-        "collection": "decor"
       }
     },
     "collage": {
@@ -432,9 +432,9 @@
     "gifting_section_carousel_48EDLF",
     "1761479143745e5c33",
     "image_banner_PaG766",
+    "product_carousel_RLEwr9",
     "rich_text",
     "featured_collection",
-    "product_carousel_RLEwr9",
     "collage",
     "video",
     "multicolumn"
