@@ -104,7 +104,7 @@
               "servings"
             ],
             "show_description": true,
-            "container_width": 1200,
+            "container_width": 1400,
             "gap": 20,
             "image_ratio": 100,
             "text_alignment": "left",
@@ -142,7 +142,7 @@
         "button_label": "EXPLORE",
         "carousel_collection": "decor",
         "container_width": 1400,
-        "image_ratio": 80,
+        "image_ratio": 100,
         "title_size": 16,
         "title_color": "#273a27",
         "subtext_size": 14,
