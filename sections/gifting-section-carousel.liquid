@@ -1,52 +1,127 @@
 {% comment %}
-  Gifting Hero + Product Carousel
-  - Left: Hero Image
-  - Right: Single-item Product Slider (infinite, clones, arrows)
-  - Explore button uses a collection picker in theme editor
+  Gifting Hero + Product Slider (Slick Version)
 {% endcomment %}
 
 {% assign ai_gen_id = section.id | replace: '_', '' | downcase %}
 
+<!-- Slick CSS (LOCAL LOAD ONLY) -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
 {% style %}
-  .gifting-hero-{{ ai_gen_id }} { background-color: {{ section.settings.background_color }}; padding: 40px 0; }
-  .gifting-hero__container-{{ ai_gen_id }} { max-width: {{ section.settings.container_width }}px; margin: 0 auto; padding: 0 20px; }
-  .gifting-hero__grid-{{ ai_gen_id }} { display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch; }
-  .gifting-hero__left-{{ ai_gen_id }} { flex: 1 1 56%; min-width: 320px; }
-  .gifting-hero__left-{{ ai_gen_id }} img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display:block; }
+  .gifting-hero-{{ ai_gen_id }} {
+    background-color: {{ section.settings.background_color }};
+    padding: 40px 0;
+  }
+  .gifting-hero__container-{{ ai_gen_id }} {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .gifting-hero__grid-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: stretch;
+  }
 
-  .gifting-hero__right-{{ ai_gen_id }} { flex: 0 0 40%; min-width: 300px; display:flex; flex-direction:column; justify-content:flex-start; align-items:stretch; }
-  .gifting-hero__carousel-wrap-{{ ai_gen_id }} { width:100%; display:flex; align-items:center; justify-content:space-between; margin-bottom: 28px; position: relative; }
-  .gifting-hero__carousel-viewport-{{ ai_gen_id }} { flex:1; overflow:hidden; }
-  .ai-collection-slider__track-{{ ai_gen_id }} { display:flex; gap: {{ section.settings.gap }}px; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); align-items:stretch; }
+  .gifting-hero__left-{{ ai_gen_id }} {
+    flex: 1 1 56%;
+    min-width: 320px;
+  }
+  .gifting-hero__left-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display:block;
+  }
 
-  /* 1 product per slide */
-  .ai-collection-slider__item-{{ ai_gen_id }} { flex: 0 0 100%; min-width: 100%; box-sizing: border-box; }
-  .ai-collection-slider__card-{{ ai_gen_id }} { display:block; text-decoration:none; overflow:hidden; border-radius: {{ section.settings.card_border_radius }}px; background: {{ section.settings.card_background }}; }
+  .gifting-hero__right-{{ ai_gen_id }} {
+    flex: 0 0 40%;
+    min-width: 300px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+  }
 
-  .ai-collection-slider__image-wrapper-{{ ai_gen_id }} { position:relative; width:100%; padding-bottom: {{ section.settings.image_ratio }}%; background:#f4f4f4; overflow:hidden; }
-  .ai-collection-slider__image-{{ ai_gen_id }} { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: opacity .3s ease, transform .3s ease; }
+  .ai-slider-item-{{ ai_gen_id }} a {
+    display:block;
+    text-decoration:none;
+  }
 
-  /* Hover second image */
-  .ai-second-img-{{ ai_gen_id }} { opacity:0; }
-  .ai-collection-slider__card-{{ ai_gen_id }}:hover .ai-second-img-{{ ai_gen_id }} { opacity:1; transform: scale(1.05); }
-  .ai-collection-slider__card-{{ ai_gen_id }}:hover .ai-first-img-{{ ai_gen_id }} { opacity:0; }
+  .ai-slider-card-{{ ai_gen_id }} {
+    border-radius: {{ section.settings.card_border_radius }}px;
+    overflow:hidden;
+    background: {{ section.settings.card_background }};
+  }
 
-  .ai-collection-slider__content-{{ ai_gen_id }} { padding: 14px; text-align: {{ section.settings.text_alignment }}; }
-  .ai-collection-slider__title-{{ ai_gen_id }} { font-size: {{ section.settings.title_size }}px; color: {{ section.settings.title_color }}; text-transform:uppercase; letter-spacing:.02em; }
-  .ai-collection-slider__description-{{ ai_gen_id }} { margin-top:8px; font-size: {{ section.settings.description_size }}px; color: {{ section.settings.description_color }}; }
+  .ai-img-wrap-{{ ai_gen_id }} {
+    width:100%;
+    padding-bottom: {{ section.settings.image_ratio }}%;
+    position:relative;
+    overflow:hidden;
+    background:#eee;
+  }
 
-  .gifting-hero__heading-{{ ai_gen_id }} { font-family: serif; font-size: {{ section.settings.heading_size }}px; color: {{ section.settings.heading_color }}; margin: 12px 0 8px; }
-  .gifting-hero__subtext-{{ ai_gen_id }} { color: {{ section.settings.subtext_color }}; font-size: {{ section.settings.subtext_size }}px; line-height:1.5; max-width: 340px; }
+  .ai-img-{{ ai_gen_id }} {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:opacity .5s ease, transform .5s ease;
+  }
 
-  .gifting-hero__btn-{{ ai_gen_id }} { display:inline-block; border:1px solid #bbb; padding:10px 22px; border-radius:6px; margin-top:18px; text-decoration:none; color: inherit; font-weight:600; background: transparent; }
+  .ai-second-{{ ai_gen_id }} { opacity:0; }
+  .ai-slider-card-{{ ai_gen_id }}:hover .ai-second-{{ ai_gen_id }} {
+    opacity:1;
+  }
+  .ai-slider-card-{{ ai_gen_id }}:hover .ai-first-{{ ai_gen_id }} {
+    opacity:0;
+  }
 
-  .gifting-hero__nav-btn-{{ ai_gen_id }} { background:transparent; border:none; cursor:pointer; width:56px; height:56px; display:flex; align-items:center; justify-content:center; }
-  .gifting-hero__nav-svg-{{ ai_gen_id }} { width:26px; height:26px; opacity:0.8; }
+  .ai-title-{{ ai_gen_id }} {
+    text-align: {{ section.settings.text_alignment }};
+    padding: 14px;
+    font-size: {{ section.settings.title_size }}px;
+    color: {{ section.settings.title_color }};
+    font-weight:600;
+  }
 
-  @media (max-width: 1024px) {
-    .gifting-hero__left-{{ ai_gen_id }}, .gifting-hero__right-{{ ai_gen_id }} { flex-basis: 100%; }
-    .gifting-hero__right-{{ ai_gen_id }} { margin-top: 18px; }
-    .gifting-hero__subtext-{{ ai_gen_id }} { max-width: 100%; }
+  /* Text + Button */
+  .gifting-hero__heading-{{ ai_gen_id }} {
+    font-family: serif;
+    font-size: {{ section.settings.heading_size }}px;
+    color: {{ section.settings.heading_color }};
+    margin: 16px 0 8px;
+  }
+  .gifting-hero__subtext-{{ ai_gen_id }} {
+    color: {{ section.settings.subtext_color }};
+    font-size: {{ section.settings.subtext_size }}px;
+    line-height:1.5;
+    max-width: 360px;
+  }
+  .gifting-hero__btn-{{ ai_gen_id }} {
+    border:1px solid #0003;
+    padding:10px 22px;
+    border-radius:6px;
+    margin-top:18px;
+    display:inline-block;
+    text-decoration:none;
+    font-weight:600;
+    color:#000;
+  }
+
+  /* Responsive */
+  @media(max-width: 1024px) {
+    .gifting-hero__left-{{ ai_gen_id }},
+    .gifting-hero__right-{{ ai_gen_id }} {
+      flex-basis:100%;
+    }
+    .gifting-hero__subtext-{{ ai_gen_id }} {
+      max-width:100%;
+    }
   }
 {% endstyle %}
 
@@ -56,80 +131,56 @@
       <!-- LEFT IMAGE -->
       <div class="gifting-hero__left-{{ ai_gen_id }}">
         {% if section.settings.hero_image %}
-          <img
-            src="{{ section.settings.hero_image | image_url: width: 2000 }}"
-            alt="{{ section.settings.hero_image.alt | escape }}"
-          >
+          <img src="{{ section.settings.hero_image | image_url: width: 2000 }}">
         {% else %}
-          <div style="background:#e9e9e9;height:420px;border-radius:8px;"></div>
+          <div style="background:#ddd;height:420px;"></div>
         {% endif %}
       </div>
 
       <!-- RIGHT COLUMN -->
       <div class="gifting-hero__right-{{ ai_gen_id }}">
-        {% if section.settings.carousel_collection %}
-          {% assign products = section.settings.carousel_collection.products %}
-        {% endif %}
+        {% assign products = section.settings.carousel_collection.products %}
 
-        {% if products and products.size > 0 %}
-          <div class="gifting-hero__carousel-wrap-{{ ai_gen_id }}">
-            <button class="gifting-hero__nav-btn-{{ ai_gen_id }}" data-prev>
-              <svg class="gifting-hero__nav-svg-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none">
-                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </button>
+        {% if products.size > 0 %}
+          <div class="ai-slider-{{ ai_gen_id }}">
+            {% for product in products %}
+              <div class="ai-slider-item-{{ ai_gen_id }}">
+                <a href="{{ product.url }}">
+                  <div class="ai-slider-card-{{ ai_gen_id }}">
+                    <div class="ai-img-wrap-{{ ai_gen_id }}">
+                      <!-- Main image -->
+                      {% assign first = product.featured_image %}
+                      {% if first %}
+                        <img
+                          class="ai-img-{{ ai_gen_id }} ai-first-{{ ai_gen_id }}"
+                          src="{{ first | image_url: width: 900 }}"
+                        >
+                      {% endif %}
 
-            <div class="gifting-hero__carousel-viewport-{{ ai_gen_id }}">
-              <div class="ai-collection-slider__track-{{ ai_gen_id }}" data-track>
-                {% for product in products %}
-                  <div class="ai-collection-slider__item-{{ ai_gen_id }}" data-item>
-                    <a href="{{ product.url }}" class="ai-collection-slider__card-{{ ai_gen_id }}">
-                      <div class="ai-collection-slider__image-wrapper-{{ ai_gen_id }}">
-                        {% assign first_img = product.featured_image %}
-                        {% assign second_img = product.images[1] %}
+                      <!-- Second hover image -->
+                      {% assign second = product.images[1] %}
+                      {% if second %}
+                        <img
+                          class="ai-img-{{ ai_gen_id }} ai-second-{{ ai_gen_id }}"
+                          src="{{ second | image_url: width: 900 }}"
+                        >
+                      {% endif %}
+                    </div>
 
-                        <!-- First image -->
-                        {% if first_img %}
-                          <img
-                            class="ai-collection-slider__image-{{ ai_gen_id }} ai-first-img-{{ ai_gen_id }}"
-                            src="{{ first_img | image_url: width: 800 }}"
-                            alt="{{ first_img.alt | escape }}"
-                          >
-                        {% endif %}
-
-                        <!-- Second image on hover -->
-                        {% if second_img %}
-                          <img
-                            class="ai-collection-slider__image-{{ ai_gen_id }} ai-second-img-{{ ai_gen_id }}"
-                            src="{{ second_img | image_url: width: 800 }}"
-                            alt="{{ second_img.alt | escape }}"
-                          >
-                        {% endif %}
-                      </div>
-
-                      <div class="ai-collection-slider__content-{{ ai_gen_id }}">
-                        <h3 class="ai-collection-slider__title-{{ ai_gen_id }}">{{ product.title }}</h3>
-                      </div>
-                    </a>
+                    {% comment %} <div class="ai-title-{{ ai_gen_id }}">{{ product.title }}</div> {% endcomment %}
                   </div>
-                {% endfor %}
+                </a>
               </div>
-            </div>
-
-            <button class="gifting-hero__nav-btn-{{ ai_gen_id }}" data-next>
-              <svg class="gifting-hero__nav-svg-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </button>
+            {% endfor %}
           </div>
         {% endif %}
 
-        <!-- Heading + Text + Button -->
+        <!-- Text + Button -->
         <h2 class="gifting-hero__heading-{{ ai_gen_id }}">{{ section.settings.hero_heading }}</h2>
         <p class="gifting-hero__subtext-{{ ai_gen_id }}">{{ section.settings.hero_subtext }}</p>
 
         {% if section.settings.explore_collection %}
-          <a href="{{ section.settings.explore_collection.url }}" class="gifting-hero__btn-{{ ai_gen_id }}">
+          <a class="gifting-hero__btn-{{ ai_gen_id }}" href="{{ section.settings.explore_collection.url }}">
             {{ section.settings.button_label }}
           </a>
         {% endif %}
@@ -138,139 +189,22 @@
   </div>
 </section>
 
+<!-- Slick JS (LOCAL ONLY) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 <script>
-  (function () {
-    class GiftingCollectionSlider{{ ai_gen_id }} {
-      constructor(root) {
-        this.root = root;
-        this.track = root.querySelector('[data-track]');
-        this.prev = root.querySelector('[data-prev]');
-        this.next = root.querySelector('[data-next]');
-        this.gap = {{ section.settings.gap }};
-        this.isTransitioning = false;
-
-        if (!this.track) return;
-        this.items = Array.from(this.track.querySelectorAll('[data-item]'));
-        this.totalOriginal = this.items.length;
-        if (this.totalOriginal === 0) return;
-
-        this.itemsPerSlide = 1; // locked to 1
-        this.cloneCount = 0;
-        this.allItems = [];
-        this.currentIndex = 0;
-
-        this.handleResize = this.handleResize.bind(this);
-        this.onTransitionEnd = this.onTransitionEnd.bind(this);
-
-        this.setup();
-      }
-
-      setup() {
-        this.track.style.willChange = 'transform';
-        this.cloneItems();
-        this.setupInitialPosition();
-
-        this.prev?.addEventListener('click', () => this.slide('prev'));
-        this.next?.addEventListener('click', () => this.slide('next'));
-
-        this.track.addEventListener('transitionend', this.onTransitionEnd);
-        window.addEventListener('resize', this.handleResize);
-      }
-
-      cloneItems() {
-        const existing = Array.from(this.track.querySelectorAll('[data-clone]'));
-        existing.forEach(n => n.remove());
-
-        const clonesToAdd = Math.max(this.itemsPerSlide * 2, this.totalOriginal);
-        this.cloneCount = clonesToAdd;
-
-        const original = Array.from(this.items);
-
-        // forward clones
-        for (let i = 0; i < clonesToAdd; i++) {
-          const idx = i % original.length;
-          const clone = original[idx].cloneNode(true);
-          clone.setAttribute('data-clone', 'true');
-          this.track.appendChild(clone);
-        }
-
-        // backward clones
-        for (let i = 0; i < clonesToAdd; i++) {
-          const idx = (original.length - 1 - (i % original.length) + original.length) % original.length;
-          const clone = original[idx].cloneNode(true);
-          clone.setAttribute('data-clone', 'true');
-          this.track.insertBefore(clone, this.track.firstChild);
-        }
-
-        this.allItems = Array.from(this.track.children);
-      }
-
-      setupInitialPosition() {
-        this.currentIndex = this.cloneCount;
-        this.setPosition(false);
-      }
-
-      getItemWidth() {
-        const first = this.allItems[0];
-        return first ? first.offsetWidth : 0;
-      }
-
-      setPosition(wTransition) {
-        const w = this.getItemWidth();
-        const offset = -(this.currentIndex * (w + this.gap));
-
-        this.track.style.transition = wTransition ? '' : 'none';
-        this.track.style.transform = `translateX(${offset}px)`;
-
-        if (!wTransition) {
-          void this.track.offsetHeight;
-          this.track.style.transition = '';
-        }
-      }
-
-      slide(dir) {
-        if (this.isTransitioning) return;
-        this.isTransitioning = true;
-
-        this.currentIndex += dir === 'next' ? 1 : -1;
-        this.setPosition(true);
-      }
-
-      onTransitionEnd() {
-        this.isTransitioning = false;
-
-        const min = this.cloneCount;
-        const max = this.cloneCount + this.totalOriginal;
-
-        if (this.currentIndex >= max) {
-          this.currentIndex = min + (this.currentIndex - max);
-          this.setPosition(false);
-        } else if (this.currentIndex < min) {
-          this.currentIndex = max - (min - this.currentIndex);
-          this.setPosition(false);
-        }
-      }
-
-      handleResize() {
-        const original = Array.from(this.track.querySelectorAll('[data-item]')).filter(el => !el.hasAttribute('data-clone'));
-
-        while (this.track.firstChild) this.track.removeChild(this.track.firstChild);
-
-        original.forEach(n => this.track.appendChild(n));
-
-        this.items = original;
-        this.totalOriginal = original.length;
-
-        this.cloneItems();
-        this.setupInitialPosition();
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const root = document.querySelector('.gifting-hero-{{ ai_gen_id }}');
-      if (root) new GiftingCollectionSlider{{ ai_gen_id }}(root);
+  $(document).ready(function () {
+    $('.ai-slider-{{ ai_gen_id }}').slick({
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true,
+      adaptiveHeight: true,
+      prevArrow: '<button class="slick-prev">‹</button>',
+      nextArrow: '<button class="slick-next">›</button>',
     });
-  })();
+  });
 </script>
 
 {% schema %}
@@ -288,16 +222,15 @@
       "default": "Beautifully packaged, perfectly picked – Celebrate the new beginning with thoughtfully curated wedding gifts."
     },
 
-    { "type": "collection", "id": "explore_collection", "label": "Explore button - collection" },
-
+    { "type": "collection", "id": "explore_collection", "label": "Explore button collection" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "EXPLORE" },
 
-    { "type": "collection", "id": "carousel_collection", "label": "Product collection for slider" },
+    { "type": "collection", "id": "carousel_collection", "label": "Product collection (slider)" },
 
     {
       "type": "range",
       "id": "container_width",
-      "label": "Container width (px)",
+      "label": "Container width",
       "min": 800,
       "max": 1600,
       "step": 50,
@@ -306,18 +239,8 @@
 
     {
       "type": "range",
-      "id": "gap",
-      "label": "Gap between items (px)",
-      "min": 8,
-      "max": 40,
-      "step": 2,
-      "default": 20
-    },
-
-    {
-      "type": "range",
       "id": "image_ratio",
-      "label": "Image aspect ratio (padding-bottom %)",
+      "label": "Image ratio (padding-bottom %)",
       "min": 60,
       "max": 150,
       "step": 1,
@@ -326,57 +249,10 @@
 
     {
       "type": "range",
-      "id": "card_border_radius",
-      "label": "Card border radius",
-      "min": 0,
-      "max": 24,
-      "step": 1,
-      "default": 8
-    },
-
-    {
-      "type": "select",
-      "id": "text_alignment",
-      "label": "Card text alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center"
-    },
-
-    {
-      "type": "range",
-      "id": "heading_size",
-      "label": "Heading font size (px)",
-      "min": 22,
-      "max": 44,
-      "step": 2,
-      "default": 34
-    },
-
-    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#6b5b4e" },
-
-    {
-      "type": "range",
-      "id": "subtext_size",
-      "label": "Subtext size (px)",
-      "min": 12,
-      "max": 20,
-      "step": 1,
-      "default": 14
-    },
-
-    { "type": "color", "id": "subtext_color", "label": "Subtext color", "default": "#555555" },
-
-    {
-      "type": "range",
       "id": "title_size",
-      "label": "Title size (px)",
+      "label": "Title size",
       "min": 12,
       "max": 26,
-      "step": 1,
       "default": 16
     },
 
@@ -384,20 +260,48 @@
 
     {
       "type": "range",
-      "id": "description_size",
-      "label": "Description size (px)",
-      "min": 10,
-      "max": 16,
-      "step": 1,
-      "default": 13
+      "id": "subtext_size",
+      "label": "Subtext size",
+      "min": 12,
+      "max": 20,
+      "default": 14
     },
+    { "type": "color", "id": "subtext_color", "label": "Subtext color", "default": "#555555" },
 
-    { "type": "color", "id": "description_color", "label": "Description color", "default": "#666666" },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 22,
+      "max": 44,
+      "default": 34
+    },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#6b5b4e" },
 
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 24,
+      "default": 8
+    },
     { "type": "color", "id": "card_background", "label": "Card background", "default": "#ffffff" },
 
-    { "type": "color", "id": "background_color", "label": "Section background", "default": "#f3f2ee" }
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#f3f2ee" },
+
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Card text alignment",
+      "options": [
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ],
+      "default": "center"
+    }
   ],
-  "presets": [{ "name": "Gifting product slider" }]
+  "presets": [{ "name": "Gifting product slider (Slick)" }]
 }
 {% endschema %}
