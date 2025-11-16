@@ -146,12 +146,12 @@
         "title_size": 16,
         "title_color": "#273a27",
         "subtext_size": 14,
-        "subtext_color": "#555555",
+        "subtext_color": "#273a27",
         "heading_size": 34,
-        "heading_color": "#6b5b4e",
+        "heading_color": "#273a27",
         "card_border_radius": 0,
         "card_background": "#ffffff",
-        "background_color": "#f3f2ee",
+        "background_color": "#ffffff",
         "text_alignment": "center"
       }
     },
