@@ -1,7 +1,7 @@
 {% comment %}
-  Gifting Hero + Collection Slider
+  Gifting Hero + Product Carousel
   - Left: Hero Image
-  - Right: Single-item Collection Slider (infinite, clones, arrows)
+  - Right: Single-item Product Slider (infinite, clones, arrows)
   - Explore button uses a collection picker in theme editor
 {% endcomment %}
 
@@ -19,13 +19,17 @@
   .gifting-hero__carousel-viewport-{{ ai_gen_id }} { flex:1; overflow:hidden; }
   .ai-collection-slider__track-{{ ai_gen_id }} { display:flex; gap: {{ section.settings.gap }}px; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); align-items:stretch; }
 
-  /* MAKE ITEMS FULL WIDTH (1 per slide) */
+  /* 1 product per slide */
   .ai-collection-slider__item-{{ ai_gen_id }} { flex: 0 0 100%; min-width: 100%; box-sizing: border-box; }
   .ai-collection-slider__card-{{ ai_gen_id }} { display:block; text-decoration:none; overflow:hidden; border-radius: {{ section.settings.card_border_radius }}px; background: {{ section.settings.card_background }}; }
 
   .ai-collection-slider__image-wrapper-{{ ai_gen_id }} { position:relative; width:100%; padding-bottom: {{ section.settings.image_ratio }}%; background:#f4f4f4; overflow:hidden; }
-  .ai-collection-slider__image-{{ ai_gen_id }} { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: transform .3s ease, opacity .25s ease; }
-  .ai-collection-slider__card-{{ ai_gen_id }}:hover .ai-collection-slider__image-{{ ai_gen_id }} { transform: scale(1.05); }
+  .ai-collection-slider__image-{{ ai_gen_id }} { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: opacity .3s ease, transform .3s ease; }
+
+  /* Hover second image */
+  .ai-second-img-{{ ai_gen_id }} { opacity:0; }
+  .ai-collection-slider__card-{{ ai_gen_id }}:hover .ai-second-img-{{ ai_gen_id }} { opacity:1; transform: scale(1.05); }
+  .ai-collection-slider__card-{{ ai_gen_id }}:hover .ai-first-img-{{ ai_gen_id }} { opacity:0; }
 
   .ai-collection-slider__content-{{ ai_gen_id }} { padding: 14px; text-align: {{ section.settings.text_alignment }}; }
   .ai-collection-slider__title-{{ ai_gen_id }} { font-size: {{ section.settings.title_size }}px; color: {{ section.settings.title_color }}; text-transform:uppercase; letter-spacing:.02em; }
@@ -36,7 +40,6 @@
 
   .gifting-hero__btn-{{ ai_gen_id }} { display:inline-block; border:1px solid #bbb; padding:10px 22px; border-radius:6px; margin-top:18px; text-decoration:none; color: inherit; font-weight:600; background: transparent; }
 
-  /* Arrow buttons positioned at ends */
   .gifting-hero__nav-btn-{{ ai_gen_id }} { background:transparent; border:none; cursor:pointer; width:56px; height:56px; display:flex; align-items:center; justify-content:center; }
   .gifting-hero__nav-svg-{{ ai_gen_id }} { width:26px; height:26px; opacity:0.8; }
 
@@ -64,51 +67,48 @@
 
       <!-- RIGHT COLUMN -->
       <div class="gifting-hero__right-{{ ai_gen_id }}">
-        <!-- Carousel at top (uses user's slider markup) -->
-        {% if section.settings.collections != blank and section.settings.collections.size > 0 %}
+        {% if section.settings.carousel_collection %}
+          {% assign products = section.settings.carousel_collection.products %}
+        {% endif %}
+
+        {% if products and products.size > 0 %}
           <div class="gifting-hero__carousel-wrap-{{ ai_gen_id }}">
-            <button class="gifting-hero__nav-btn-{{ ai_gen_id }}" data-prev aria-label="Previous">
-              <svg
-                class="gifting-hero__nav-svg-{{ ai_gen_id }}"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M15 18l-6-6 6-6"/>
+            <button class="gifting-hero__nav-btn-{{ ai_gen_id }}" data-prev>
+              <svg class="gifting-hero__nav-svg-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5"/>
               </svg>
             </button>
 
             <div class="gifting-hero__carousel-viewport-{{ ai_gen_id }}">
               <div class="ai-collection-slider__track-{{ ai_gen_id }}" data-track>
-                {% for collection in section.settings.collections %}
+                {% for product in products %}
                   <div class="ai-collection-slider__item-{{ ai_gen_id }}" data-item>
-                    <a href="{{ collection.url }}" class="ai-collection-slider__card-{{ ai_gen_id }}">
+                    <a href="{{ product.url }}" class="ai-collection-slider__card-{{ ai_gen_id }}">
                       <div class="ai-collection-slider__image-wrapper-{{ ai_gen_id }}">
-                        {% if collection.featured_image %}
+                        {% assign first_img = product.featured_image %}
+                        {% assign second_img = product.images[1] %}
+
+                        <!-- First image -->
+                        {% if first_img %}
                           <img
-                            src="{{ collection.featured_image | image_url: width: 800 }}"
-                            alt="{{ collection.featured_image.alt | escape }}"
-                            class="ai-collection-slider__image-{{ ai_gen_id }}"
-                            loading="lazy"
+                            class="ai-collection-slider__image-{{ ai_gen_id }} ai-first-img-{{ ai_gen_id }}"
+                            src="{{ first_img | image_url: width: 800 }}"
+                            alt="{{ first_img.alt | escape }}"
                           >
-                        {% else %}
-                          <div style="height:100%;display:flex;align-items:center;justify-content:center;background:#f4f4f4;">
-                            {{ 'collection-1' | placeholder_svg_tag }}
-                          </div>
+                        {% endif %}
+
+                        <!-- Second image on hover -->
+                        {% if second_img %}
+                          <img
+                            class="ai-collection-slider__image-{{ ai_gen_id }} ai-second-img-{{ ai_gen_id }}"
+                            src="{{ second_img | image_url: width: 800 }}"
+                            alt="{{ second_img.alt | escape }}"
+                          >
                         {% endif %}
                       </div>
+
                       <div class="ai-collection-slider__content-{{ ai_gen_id }}">
-                        <div class="flex items-center justify-center gap-2">
-                          <h3 class="ai-collection-slider__title-{{ ai_gen_id }}">{{ collection.title }}</h3>
-                        </div>
-                        {% if section.settings.show_description and collection.description != blank %}
-                          <p class="ai-collection-slider__description-{{ ai_gen_id }}">
-                            {{ collection.description | strip_html | truncate: 100 }}
-                          </p>
-                        {% endif %}
+                        <h3 class="ai-collection-slider__title-{{ ai_gen_id }}">{{ product.title }}</h3>
                       </div>
                     </a>
                   </div>
@@ -116,32 +116,22 @@
               </div>
             </div>
 
-            <button class="gifting-hero__nav-btn-{{ ai_gen_id }}" data-next aria-label="Next">
-              <svg
-                class="gifting-hero__nav-svg-{{ ai_gen_id }}"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M9 18l6-6-6-6"/>
+            <button class="gifting-hero__nav-btn-{{ ai_gen_id }}" data-next>
+              <svg class="gifting-hero__nav-svg-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5"/>
               </svg>
             </button>
           </div>
         {% endif %}
 
-        <!-- Heading, subtext, button (mirrors image layout) -->
+        <!-- Heading + Text + Button -->
         <h2 class="gifting-hero__heading-{{ ai_gen_id }}">{{ section.settings.hero_heading }}</h2>
         <p class="gifting-hero__subtext-{{ ai_gen_id }}">{{ section.settings.hero_subtext }}</p>
 
         {% if section.settings.explore_collection %}
           <a href="{{ section.settings.explore_collection.url }}" class="gifting-hero__btn-{{ ai_gen_id }}">
-            {{- section.settings.button_label -}}
+            {{ section.settings.button_label }}
           </a>
-        {% else %}
-          <a href="#" class="gifting-hero__btn-{{ ai_gen_id }}">{{ section.settings.button_label }}</a>
         {% endif %}
       </div>
     </div>
@@ -154,8 +144,8 @@
       constructor(root) {
         this.root = root;
         this.track = root.querySelector('[data-track]');
-        this.prev = root.querySelector('[data-prev]') || root.querySelector('[data-prev-btn]');
-        this.next = root.querySelector('[data-next]') || root.querySelector('[data-next-btn]');
+        this.prev = root.querySelector('[data-prev]');
+        this.next = root.querySelector('[data-next]');
         this.gap = {{ section.settings.gap }};
         this.isTransitioning = false;
 
@@ -164,9 +154,7 @@
         this.totalOriginal = this.items.length;
         if (this.totalOriginal === 0) return;
 
-        // Force 1 item per slide as requested
-        this.itemsPerSlide = 1;
-
+        this.itemsPerSlide = 1; // locked to 1
         this.cloneCount = 0;
         this.allItems = [];
         this.currentIndex = 0;
@@ -178,44 +166,39 @@
       }
 
       setup() {
-        // ensure track has no inline transform
         this.track.style.willChange = 'transform';
         this.cloneItems();
         this.setupInitialPosition();
 
-        // events
-        if (this.prev) this.prev.addEventListener('click', () => this.slide('prev'));
-        if (this.next) this.next.addEventListener('click', () => this.slide('next'));
+        this.prev?.addEventListener('click', () => this.slide('prev'));
+        this.next?.addEventListener('click', () => this.slide('next'));
+
         this.track.addEventListener('transitionend', this.onTransitionEnd);
         window.addEventListener('resize', this.handleResize);
       }
 
       cloneItems() {
-        // remove existing clones if any
         const existing = Array.from(this.track.querySelectorAll('[data-clone]'));
         existing.forEach(n => n.remove());
 
-        // clones to add: at least itemsPerSlide * 2 or totalOriginal (keep safe)
         const clonesToAdd = Math.max(this.itemsPerSlide * 2, this.totalOriginal);
         this.cloneCount = clonesToAdd;
 
         const original = Array.from(this.items);
 
-        // append forward clones
+        // forward clones
         for (let i = 0; i < clonesToAdd; i++) {
           const idx = i % original.length;
           const clone = original[idx].cloneNode(true);
           clone.setAttribute('data-clone', 'true');
-          clone.setAttribute('aria-hidden', 'true');
           this.track.appendChild(clone);
         }
 
-        // prepend backward clones (reverse order)
+        // backward clones
         for (let i = 0; i < clonesToAdd; i++) {
           const idx = (original.length - 1 - (i % original.length) + original.length) % original.length;
           const clone = original[idx].cloneNode(true);
           clone.setAttribute('data-clone', 'true');
-          clone.setAttribute('aria-hidden', 'true');
           this.track.insertBefore(clone, this.track.firstChild);
         }
 
@@ -223,72 +206,58 @@
       }
 
       setupInitialPosition() {
-        // Start at first original item (after prepended clones)
         this.currentIndex = this.cloneCount;
         this.setPosition(false);
       }
 
       getItemWidth() {
         const first = this.allItems[0];
-        if (!first) return 0;
-        // offsetWidth includes borders; gap in px is added between items so we include gap explicitly
-        return first.offsetWidth;
+        return first ? first.offsetWidth : 0;
       }
 
-      setPosition(withTransition) {
-        const itemW = this.getItemWidth();
-        const offset = -(this.currentIndex * (itemW + this.gap));
-        if (!withTransition) {
-          this.track.style.transition = 'none';
-        } else {
-          this.track.style.transition = 'transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)';
-        }
+      setPosition(wTransition) {
+        const w = this.getItemWidth();
+        const offset = -(this.currentIndex * (w + this.gap));
+
+        this.track.style.transition = wTransition ? '' : 'none';
         this.track.style.transform = `translateX(${offset}px)`;
-        // force style flush when removing transition
-        if (!withTransition) {
-          // read to force reflow
+
+        if (!wTransition) {
           void this.track.offsetHeight;
-          this.track.style.transition = 'transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)';
+          this.track.style.transition = '';
         }
       }
 
-      slide(direction) {
+      slide(dir) {
         if (this.isTransitioning) return;
         this.isTransitioning = true;
 
-        if (direction === 'next') {
-          this.currentIndex += this.itemsPerSlide;
-        } else {
-          this.currentIndex -= this.itemsPerSlide;
-        }
+        this.currentIndex += dir === 'next' ? 1 : -1;
         this.setPosition(true);
       }
 
       onTransitionEnd() {
         this.isTransitioning = false;
-        const minIndex = this.cloneCount;
-        const maxIndex = this.cloneCount + this.totalOriginal;
 
-        if (this.currentIndex >= maxIndex) {
-          // moved past end -> wrap to beginning
-          this.currentIndex = minIndex + (this.currentIndex - maxIndex);
+        const min = this.cloneCount;
+        const max = this.cloneCount + this.totalOriginal;
+
+        if (this.currentIndex >= max) {
+          this.currentIndex = min + (this.currentIndex - max);
           this.setPosition(false);
-        } else if (this.currentIndex < minIndex) {
-          // moved before start -> wrap to end
-          this.currentIndex = maxIndex - (minIndex - this.currentIndex);
+        } else if (this.currentIndex < min) {
+          this.currentIndex = max - (min - this.currentIndex);
           this.setPosition(false);
         }
       }
 
       handleResize() {
-        // recalculate items and widths, re-clone to be safe
-        // collect original (non-cloned) items
         const original = Array.from(this.track.querySelectorAll('[data-item]')).filter(el => !el.hasAttribute('data-clone'));
-        if (original.length === 0) return;
 
-        // clear track then re-append original + clones
         while (this.track.firstChild) this.track.removeChild(this.track.firstChild);
+
         original.forEach(n => this.track.appendChild(n));
+
         this.items = original;
         this.totalOriginal = original.length;
 
@@ -297,9 +266,8 @@
       }
     }
 
-    // instantiate for the section
-    document.addEventListener('DOMContentLoaded', function () {
-      var root = document.querySelector('.gifting-hero-{{ ai_gen_id }}');
+    document.addEventListener('DOMContentLoaded', () => {
+      const root = document.querySelector('.gifting-hero-{{ ai_gen_id }}');
       if (root) new GiftingCollectionSlider{{ ai_gen_id }}(root);
     });
   })();
@@ -307,48 +275,25 @@
 
 {% schema %}
 {
-  "name": "Gifting collection slider",
+  "name": "Gifting product slider",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Left hero image"
-    },
-    {
-      "type": "text",
-      "id": "hero_heading",
-      "label": "Heading",
-      "default": "Wedding Gifting"
-    },
+    { "type": "image_picker", "id": "hero_image", "label": "Left hero image" },
+
+    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "Wedding Gifting" },
+
     {
       "type": "textarea",
       "id": "hero_subtext",
       "label": "Subtext",
       "default": "Beautifully packaged, perfectly picked – Celebrate the new beginning with thoughtfully curated wedding gifts."
     },
-    {
-      "type": "collection",
-      "id": "explore_collection",
-      "label": "Explore button - collection"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Explore button text",
-      "default": "EXPLORE"
-    },
-    {
-      "type": "collection_list",
-      "id": "collections",
-      "label": "Collections to show in slider",
-      "limit": 12
-    },
-    {
-      "type": "checkbox",
-      "id": "show_description",
-      "label": "Show collection description",
-      "default": true
-    },
+
+    { "type": "collection", "id": "explore_collection", "label": "Explore button - collection" },
+
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "EXPLORE" },
+
+    { "type": "collection", "id": "carousel_collection", "label": "Product collection for slider" },
+
     {
       "type": "range",
       "id": "container_width",
@@ -358,6 +303,7 @@
       "step": 50,
       "default": 1400
     },
+
     {
       "type": "range",
       "id": "gap",
@@ -367,6 +313,7 @@
       "step": 2,
       "default": 20
     },
+
     {
       "type": "range",
       "id": "image_ratio",
@@ -376,6 +323,7 @@
       "step": 1,
       "default": 80
     },
+
     {
       "type": "range",
       "id": "card_border_radius",
@@ -385,6 +333,7 @@
       "step": 1,
       "default": 8
     },
+
     {
       "type": "select",
       "id": "text_alignment",
@@ -396,6 +345,7 @@
       ],
       "default": "center"
     },
+
     {
       "type": "range",
       "id": "heading_size",
@@ -405,12 +355,9 @@
       "step": 2,
       "default": 34
     },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#6b5b4e"
-    },
+
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#6b5b4e" },
+
     {
       "type": "range",
       "id": "subtext_size",
@@ -420,55 +367,37 @@
       "step": 1,
       "default": 14
     },
-    {
-      "type": "color",
-      "id": "subtext_color",
-      "label": "Subtext color",
-      "default": "#555555"
-    },
+
+    { "type": "color", "id": "subtext_color", "label": "Subtext color", "default": "#555555" },
+
     {
       "type": "range",
       "id": "title_size",
-      "label": "Collection title size (px)",
+      "label": "Title size (px)",
       "min": 12,
       "max": 26,
       "step": 1,
       "default": 16
     },
-    {
-      "type": "color",
-      "id": "title_color",
-      "label": "Collection title color",
-      "default": "#273A27"
-    },
+
+    { "type": "color", "id": "title_color", "label": "Title color", "default": "#273A27" },
+
     {
       "type": "range",
       "id": "description_size",
-      "label": "Collection description size (px)",
+      "label": "Description size (px)",
       "min": 10,
       "max": 16,
       "step": 1,
       "default": 13
     },
-    {
-      "type": "color",
-      "id": "description_color",
-      "label": "Collection description color",
-      "default": "#666666"
-    },
-    {
-      "type": "color",
-      "id": "card_background",
-      "label": "Card background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Section background",
-      "default": "#f3f2ee"
-    }
+
+    { "type": "color", "id": "description_color", "label": "Description color", "default": "#666666" },
+
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#ffffff" },
+
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#f3f2ee" }
   ],
-  "presets": [{ "name": "Gifting collection slider" }]
+  "presets": [{ "name": "Gifting product slider" }]
 }
 {% endschema %}
