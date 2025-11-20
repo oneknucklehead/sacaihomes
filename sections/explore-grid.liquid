@@ -1,65 +1,135 @@
-<div>
-  {% for block in settings.blocks %}
-    <div>
-      <div>
-        {% if block.settings.card_image %}
-          <img src="{{ block.settings.card_image | img_url: 'medium' }}" alt="{{ block.settings.card_title }}">
-        {% endif %}
-      </div>
-      <div>
-        <h3>{{ block.settings.card_title }}</h3>
-        <p>{{ block.settings.card_description }}</p>
-        {% if block.settings.card_link %}
-          <a href="{{ block.settings.card_link }}">{{ block.settings.card_button_text }}</a>
-        {% endif %}
-      </div>
-    </div>
-  {% endfor %}
+<div class="grid md:grid-cols-2 gap-8">
+  <!-- CARD 1 -->
+  <div class="p-6 border rounded-xl">
+    {% if section.settings.about_image %}
+      <img
+        src="{{ section.settings.about_image | image_url: width: 1200 }}"
+        width="{{ section.settings.about_image.width }}"
+        height="{{ section.settings.about_image.height }}"
+        alt="{{ section.settings.about_title }}"
+        class="w-full h-auto mb-4"
+      >
+    {% endif %}
+
+    {% if section.settings.about_title %}
+      <h2 class="text-2xl font-semibold mb-2">{{ section.settings.about_title }}</h2>
+    {% endif %}
+
+    {% if section.settings.about_description %}
+      <p class="text-gray-600 mb-4">{{ section.settings.about_description }}</p>
+    {% endif %}
+
+    {% if section.settings.about_button_text and section.settings.about_button_link %}
+      <a
+        href="{{ section.settings.about_button_link }}"
+        class="inline-block bg-black text-white px-4 py-2 rounded-md"
+      >
+        {{ section.settings.about_button_text }}
+      </a>
+    {% endif %}
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="p-6 border rounded-xl">
+    {% if section.settings.catalog_image %}
+      <img
+        src="{{ section.settings.catalog_image | image_url: width: 1200 }}"
+        width="{{ section.settings.catalog_image.width }}"
+        height="{{ section.settings.catalog_image.height }}"
+        alt="{{ section.settings.catalog_title }}"
+        class="w-full h-auto mb-4"
+      >
+    {% endif %}
+
+    {% if section.settings.catalog_title %}
+      <h2 class="text-2xl font-semibold mb-2">{{ section.settings.catalog_title }}</h2>
+    {% endif %}
+
+    {% if section.settings.catalog_description %}
+      <p class="text-gray-600 mb-4">{{ section.settings.catalog_description }}</p>
+    {% endif %}
+
+    {% if section.settings.catalog_button_text and section.settings.catalog_button_link %}
+      <a
+        href="{{ section.settings.catalog_button_link }}"
+        class="inline-block bg-black text-white px-4 py-2 rounded-md"
+      >
+        {{ section.settings.catalog_button_text }}
+      </a>
+    {% endif %}
+  </div>
 </div>
 <script></script>
 
 {% schema %}
 {
-  "name": "Explore Cards Section",
-  "settings": [],
-  "blocks": [
+  "name": "Explore Cards Grid",
+  "settings": [
     {
-      "type": "card",
-      "name": "Card",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "card_image",
-          "label": "Card Image"
-        },
-        {
-          "type": "text",
-          "id": "card_title",
-          "label": "Title"
-        },
-        {
-          "type": "textarea",
-          "id": "card_description",
-          "label": "Description"
-        },
-        {
-          "type": "url",
-          "id": "card_link",
-          "label": "Button Link"
-        },
-        {
-          "type": "text",
-          "id": "card_button_text",
-          "label": "Button Text",
-          "default": "Learn More"
-        }
-      ]
+      "type": "header",
+      "content": "About Card"
+    },
+    {
+      "type": "image_picker",
+      "id": "about_image",
+      "label": "About Image"
+    },
+    {
+      "type": "text",
+      "id": "about_title",
+      "label": "About Title"
+    },
+    {
+      "type": "textarea",
+      "id": "about_description",
+      "label": "About Description"
+    },
+    {
+      "type": "text",
+      "id": "about_button_text",
+      "label": "About Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "about_button_link",
+      "label": "About Button Link"
+    },
+
+    {
+      "type": "header",
+      "content": "Catalog Card"
+    },
+    {
+      "type": "image_picker",
+      "id": "catalog_image",
+      "label": "Catalog Image"
+    },
+    {
+      "type": "text",
+      "id": "catalog_title",
+      "label": "Catalog Title"
+    },
+    {
+      "type": "textarea",
+      "id": "catalog_description",
+      "label": "Catalog Description"
+    },
+    {
+      "type": "text",
+      "id": "catalog_button_text",
+      "label": "Catalog Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "catalog_button_link",
+      "label": "Catalog Button Link"
     }
   ],
   "presets": [
     {
-      "name": "Explore Cards Section",
-      "category": "Custom"
+      "name": "Explore Cards Grid"
     }
   ]
 }
