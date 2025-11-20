@@ -318,6 +318,44 @@
         "catalog_button_link": "shopify://collections/sculptures"
       }
     },
+    "collection_grid_carousel_Ar9J4f": {
+      "type": "collection-grid-carousel",
+      "blocks": {
+        "card_drcd3N": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/pexels-bemistermister-3636956.jpg",
+            "button_text": "Learn More",
+            "button_link": "shopify://collections/servings"
+          }
+        },
+        "card_fMgccT": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/pexels-taryn-elliott-4099349.jpg",
+            "button_text": "Learn More",
+            "button_link": "shopify://collections/sculptures"
+          }
+        },
+        "card_aRAg9f": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/pexels-bemistermister-3636956.jpg",
+            "button_text": "Learn More",
+            "button_link": "shopify://collections/decor"
+          }
+        }
+      },
+      "block_order": [
+        "card_drcd3N",
+        "card_fMgccT",
+        "card_aRAg9f"
+      ],
+      "name": "Collection Grid+carousel",
+      "settings": {
+        "background_color": "#fbfaf7"
+      }
+    },
     "testimonials_custom_eAUREH": {
       "type": "testimonials-custom",
       "blocks": {
@@ -528,6 +566,7 @@
     "product_carousel_RLEwr9",
     "blocks_YMW9px",
     "explore_grid_mHKHwG",
+    "collection_grid_carousel_Ar9J4f",
     "testimonials_custom_eAUREH",
     "rich_text",
     "featured_collection",
