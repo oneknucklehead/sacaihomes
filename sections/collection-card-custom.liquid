@@ -5,85 +5,14 @@
   - Tailwind classes used
 {% endcomment %}
 
-<section class="w-full select-none" id="category-cards-{{ section.id }}">
-  <div class="hidden md:grid grid-cols-3 h-[75vh]">
-    {% for block in section.blocks %}
-      <a href="{{ block.settings.link }}" class="relative group h-full w-full overflow-hidden cursor-pointer">
-        <img
-          src="{{ block.settings.image | img_url: 'master' }}"
-          alt="{{ block.settings.title }}"
-          class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        >
+<section class="w-full select-none"></section>
 
-        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-500"></div>
+<!-- SLICK SLIDER INIT (Scoped to this section only) -->
+<script></script>
 
-        <!-- Button Overlay -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div class="px-6 py-2 border border-white text-white tracking-wide text-xs md:text-sm hover:bg-white hover:text-black transition-all duration-500">
-            {{ block.settings.title }}
-          </div>
-        </div>
-      </a>
-    {% endfor %}
-  </div>
-
-  <!-- MOBILE CAROUSEL (updated based on user description) -->
-  <div class="md:hidden swiper-container relative w-full h-[60vh]">
-    <div class="swiper-wrapper">
-      {% for block in section.blocks %}
-        <div class="swiper-slide">
-          <a href="{{ block.settings.link }}" class="relative block h-full w-full overflow-hidden">
-            <img
-              src="{{ block.settings.image | img_url: 'master' }}"
-              alt="{{ block.settings.title }}"
-              class="h-full w-full object-cover"
-            >
-
-            <!-- Bottom-left button -->
-            <div class="absolute bottom-6 left-6">
-              <div class="px-5 py-2 border border-white text-white text-xs tracking-wide bg-black/30 backdrop-blur-sm">
-                {{ block.settings.title }}
-              </div>
-            </div>
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-
-    <!-- Pagination dots -->
-    <div class="swiper-pagination !bottom-2"></div>
-  </div>
-</section>
+<style></style>
 
 <!-- Swiper JS Init -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    new Swiper('.swiper-container', {
-      loop: true,
-      slidesPerView: 1,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
-  });
-</script>
-
-<style>
-  /* Pagination dots styled like AddressHome */
-  .swiper-pagination-bullet {
-    width: 7px;
-    height: 7px;
-    background: #ffffff80; /* semi-white */
-    opacity: 1;
-    transition: all 0.35s ease;
-  }
-  .swiper-pagination-bullet-active {
-    width: 18px;
-    border-radius: 20px;
-    background: #ffffff; /* solid white */
-  }
-</style>
 
 {% schema %}
 {

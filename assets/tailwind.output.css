@@ -45,7 +45,7 @@
     --tracking-wide: 0.025em;
     --tracking-wider: 0.05em;
     --radius-lg: 0.5rem;
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --blur-sm: 8px;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -229,12 +229,6 @@
   .right-0 {
     right: calc(var(--spacing) * 0);
   }
-  .\!bottom-2 {
-    bottom: calc(var(--spacing) * 2) !important;
-  }
-  .\!bottom-3 {
-    bottom: calc(var(--spacing) * 3) !important;
-  }
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
   }
@@ -243,9 +237,6 @@
   }
   .bottom-8 {
     bottom: calc(var(--spacing) * 8);
-  }
-  .bottom-10 {
-    bottom: calc(var(--spacing) * 10);
   }
   .left-0 {
     left: calc(var(--spacing) * 0);
@@ -354,9 +345,6 @@
   }
   .h-\[60vh\] {
     height: 60vh;
-  }
-  .h-\[70vh\] {
-    height: 70vh;
   }
   .h-\[75vh\] {
     height: 75vh;
@@ -549,12 +537,6 @@
   .bg-white {
     background-color: var(--color-white);
   }
-  .bg-cover {
-    background-size: cover;
-  }
-  .bg-center {
-    background-position: center;
-  }
   .object-cover {
     object-fit: cover;
   }
@@ -649,10 +631,6 @@
   .tracking-\[0\.15em\] {
     --tw-tracking: 0.15em;
     letter-spacing: 0.15em;
-  }
-  .tracking-\[3px\] {
-    --tw-tracking: 3px;
-    letter-spacing: 3px;
   }
   .tracking-tight {
     --tw-tracking: var(--tracking-tight);
@@ -758,13 +736,9 @@
     --tw-duration: 700ms;
     transition-duration: 700ms;
   }
-  .duration-\[2000ms\] {
-    --tw-duration: 2000ms;
-    transition-duration: 2000ms;
-  }
-  .ease-out {
-    --tw-ease: var(--ease-out);
-    transition-timing-function: var(--ease-out);
+  .ease-in-out {
+    --tw-ease: var(--ease-in-out);
+    transition-timing-function: var(--ease-in-out);
   }
   .select-none {
     -webkit-user-select: none;
@@ -784,16 +758,6 @@
         --tw-scale-x: 105%;
         --tw-scale-y: 105%;
         --tw-scale-z: 105%;
-        scale: var(--tw-scale-x) var(--tw-scale-y);
-      }
-    }
-  }
-  .group-hover\:scale-110 {
-    &:is(:where(.group):hover *) {
-      @media (hover: hover) {
-        --tw-scale-x: 110%;
-        --tw-scale-y: 110%;
-        --tw-scale-z: 110%;
         scale: var(--tw-scale-x) var(--tw-scale-y);
       }
     }

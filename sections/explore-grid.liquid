@@ -1,0 +1,66 @@
+<div>
+  {% for block in settings.blocks %}
+    <div>
+      <div>
+        {% if block.settings.card_image %}
+          <img src="{{ block.settings.card_image | img_url: 'medium' }}" alt="{{ block.settings.card_title }}">
+        {% endif %}
+      </div>
+      <div>
+        <h3>{{ block.settings.card_title }}</h3>
+        <p>{{ block.settings.card_description }}</p>
+        {% if block.settings.card_link %}
+          <a href="{{ block.settings.card_link }}">{{ block.settings.card_button_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<script></script>
+
+{% schema %}
+{
+  "name": "Explore Cards Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "card_button_text",
+          "label": "Button Text",
+          "default": "Learn More"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Explore Cards Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
