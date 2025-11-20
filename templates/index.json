@@ -301,6 +301,22 @@
       ],
       "settings": {}
     },
+    "explore_grid_mHKHwG": {
+      "type": "explore-grid",
+      "name": "Explore Cards Grid",
+      "settings": {
+        "about_image": "shopify://shop_images/pexels-pixabay-433200.jpg",
+        "about_title": "title",
+        "about_description": "description",
+        "about_button_text": "Learn More",
+        "about_button_link": "shopify://collections/decor",
+        "catalog_image": "shopify://shop_images/pexels-designecologist-1248583.jpg",
+        "catalog_title": "title 2",
+        "catalog_description": "description 2",
+        "catalog_button_text": "Learn More",
+        "catalog_button_link": "shopify://collections/sculptures"
+      }
+    },
     "rich_text": {
       "type": "rich-text",
       "blocks": {
@@ -475,6 +491,7 @@
     "image_banner_PaG766",
     "product_carousel_RLEwr9",
     "blocks_YMW9px",
+    "explore_grid_mHKHwG",
     "rich_text",
     "featured_collection",
     "collage",
