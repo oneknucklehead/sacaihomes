@@ -1,0 +1,178 @@
+<section
+  class="py-16 md:py-24 bg-gray-50/50"
+  id="ReviewCarouselSection"
+  style="background-color: {{ section.settings.background_color }}"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    {% comment %} Star Rating - Fixed for visual consistency {% endcomment %}
+    <div class="text-xl tracking-widest text-black mb-6" aria-hidden="true">★★★★★</div>
+
+    <div id="review-viewport" class="relative overflow-hidden h-40 md:h-48 flex items-center justify-center">
+      {% comment %}
+        The #review-content container holds all reviews and is translated
+        vertically by JavaScript to create the sliding effect.
+        The transition classes handle the smooth animation.
+      {% endcomment %}
+      <div
+        id="review-content"
+        class="absolute top-0 left-0 w-full transition-transform duration-700 ease-in-out"
+        style="transform: translateY(0%);"
+      >
+        {% for block in section.blocks %}
+          <div
+            class="review-slide w-full h-40 md:h-48 flex flex-col justify-center items-center flex-shrink-0 px-4"
+            data-index="{{ forloop.index0 }}"
+          >
+            {% if block.settings.quote != blank %}
+              <blockquote class="text-2xl md:text-3xl font-serif italic text-gray-800 leading-normal mb-6 max-w-2xl mx-auto">
+                "{{ block.settings.quote | escape }}"
+              </blockquote>
+            {% endif %}
+
+            {% if block.settings.author != blank %}
+              <p class="text-sm font-medium uppercase tracking-wider text-gray-700">
+                {{ block.settings.author | escape }}
+              </p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% comment %} Navigation Dots {% endcomment %}
+    <div id="review-dots" class="flex justify-center mt-8 space-x-2">
+      {% for block in section.blocks %}
+        <button
+          data-index="{{ forloop.index0 }}"
+          class="dot h-2 w-2 rounded-full transition-colors duration-300 {{ forloop.first | prepend: 'bg-black' | default: 'bg-gray-300' }}"
+          aria-label="Go to review {{ forloop.index }}"
+        ></button>
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size == 0 %}
+      <p class="text-gray-500 italic">Add review blocks to this section in the theme editor.</p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  // Script for the Review Carousel logic and animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.getElementById('ReviewCarouselSection');
+    if (!section) return;
+
+    const content = section.querySelector('#review-content');
+    const dotsContainer = section.querySelector('#review-dots');
+    const slides = section.querySelectorAll('.review-slide');
+    const dots = section.querySelectorAll('.dot');
+    const totalSlides = slides.length;
+
+    if (totalSlides === 0) return;
+
+    let currentIndex = 0;
+    const slideHeight = slides[0].offsetHeight; // Height of a single slide
+    const intervalTime = 5000; // 5 seconds for auto-slide
+
+    // Function to update the carousel position and dots
+    const updateCarousel = (newIndex) => {
+      // 1. Calculate the vertical offset (percentage)
+      // We want to translate the entire content container up by the height of 'newIndex' number of slides.
+      // Since all slides are the same height (100% of the viewport), we translate by -100% * newIndex
+      const translateValue = -100 * newIndex;
+      content.style.transform = `translateY(${translateValue}%)`;
+
+      // 2. Update dot active state
+      dots.forEach((dot, index) => {
+        dot.classList.remove('bg-black');
+        dot.classList.add('bg-gray-300');
+        if (index === newIndex) {
+          dot.classList.remove('bg-gray-300');
+          dot.classList.add('bg-black');
+        }
+      });
+
+      currentIndex = newIndex;
+    };
+
+    // Auto-slide function
+    const startAutoSlide = () => {
+      return setInterval(() => {
+        const nextIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel(nextIndex);
+      }, intervalTime);
+    };
+
+    let autoSlideInterval = startAutoSlide();
+
+    // Event listeners for dots
+    dotsContainer.addEventListener('click', (event) => {
+      const targetDot = event.target.closest('.dot');
+      if (targetDot) {
+        // Clear the current auto-slide interval and restart it after the manual interaction
+        clearInterval(autoSlideInterval);
+
+        const newIndex = parseInt(targetDot.dataset.index, 10);
+        updateCarousel(newIndex);
+
+        autoSlideInterval = startAutoSlide();
+      }
+    });
+
+    // Initial check for height
+    if (slides.length > 0) {
+      // Set the height of the viewport explicitly based on the slide height for consistency
+      const singleSlideHeight = slides[0].offsetHeight;
+      const viewport = section.querySelector('#review-viewport');
+      if (viewport) {
+        viewport.style.height = `${singleSlideHeight}px`;
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Sliding Testimonials",
+  "tag": "section",
+  "class": "section-review-carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#fbfaf7"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review Quote",
+          "default": "Uniquely and beautifully designed and high quality products, especially bed linen and even all kinds of artifacts."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Pooja Panreja"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sliding Testimonials Carousel",
+      "blocks": [{ "type": "review" }, { "type": "review" }, { "type": "review" }]
+    }
+  ]
+}
+{% endschema %}
