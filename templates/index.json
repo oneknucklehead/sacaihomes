@@ -318,6 +318,41 @@
         "catalog_button_link": "shopify://collections/sculptures"
       }
     },
+    "testimonials_custom_eAUREH": {
+      "type": "testimonials-custom",
+      "blocks": {
+        "review_9k669t": {
+          "type": "review",
+          "settings": {
+            "quote": "Uniquely and beautifully designed and high quality products, especially bed linen and even all kinds of artifacts.",
+            "author": "Pooja Panreja"
+          }
+        },
+        "review_FmRx4U": {
+          "type": "review",
+          "settings": {
+            "quote": "Uniquely and beautifully designed and high quality products, especially bed linen and even all kinds of artifacts.",
+            "author": "Pooja Panreja"
+          }
+        },
+        "review_tLJbDB": {
+          "type": "review",
+          "settings": {
+            "quote": "Uniquely and beautifully designed and high quality products, especially bed linen and even all kinds of artifacts.",
+            "author": "Pooja Panreja"
+          }
+        }
+      },
+      "block_order": [
+        "review_9k669t",
+        "review_FmRx4U",
+        "review_tLJbDB"
+      ],
+      "name": "Sliding Testimonials Carousel",
+      "settings": {
+        "background_color": "#fbfaf7"
+      }
+    },
     "rich_text": {
       "type": "rich-text",
       "blocks": {
@@ -493,6 +528,7 @@
     "product_carousel_RLEwr9",
     "blocks_YMW9px",
     "explore_grid_mHKHwG",
+    "testimonials_custom_eAUREH",
     "rich_text",
     "featured_collection",
     "collage",
