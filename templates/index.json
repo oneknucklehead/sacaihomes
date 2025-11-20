@@ -260,24 +260,6 @@
         "collection": "decor"
       }
     },
-    "collection_card_custom_n4RJYh": {
-      "type": "collection-card-custom",
-      "blocks": {
-        "card_GU9gUm": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/pexels-ulrike-hassler-159445-1484981.jpg",
-            "title": "Category",
-            "link": "shopify://collections/decor"
-          }
-        }
-      },
-      "block_order": [
-        "card_GU9gUm"
-      ],
-      "name": "Category Banner Cards",
-      "settings": {}
-    },
     "blocks_YMW9px": {
       "type": "_blocks",
       "blocks": {
@@ -317,6 +299,26 @@
       "block_order": [
         "ai_gen_block_3b8eae4_VcpU3L"
       ],
+      "settings": {}
+    },
+    "explore_grid_Qk6iwe": {
+      "type": "explore-grid",
+      "blocks": {
+        "card_HGGfUf": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/pexels-pixabay-433200.jpg",
+            "card_title": "title",
+            "card_description": "description",
+            "card_link": "shopify://collections/decor",
+            "card_button_text": "Learn More"
+          }
+        }
+      },
+      "block_order": [
+        "card_HGGfUf"
+      ],
+      "name": "Explore Cards Section",
       "settings": {}
     },
     "rich_text": {
@@ -492,8 +494,8 @@
     "1761479143745e5c33",
     "image_banner_PaG766",
     "product_carousel_RLEwr9",
-    "collection_card_custom_n4RJYh",
     "blocks_YMW9px",
+    "explore_grid_Qk6iwe",
     "rich_text",
     "featured_collection",
     "collage",
