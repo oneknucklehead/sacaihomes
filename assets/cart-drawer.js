@@ -3,8 +3,7 @@ class CartDrawer extends HTMLElement {
     super();
 
     this.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
-    const overlay = this.querySelector('#CartDrawer-Overlay');
-    if (overlay) overlay.addEventListener('click', this.close.bind(this));
+    this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
     this.setHeaderCartIconAccessibility();
   }
 
@@ -30,7 +29,7 @@ class CartDrawer extends HTMLElement {
     if (triggeredBy) this.setActiveElement(triggeredBy);
     const cartDrawerNote = this.querySelector('[id^="Details-"] summary');
     if (cartDrawerNote && !cartDrawerNote.hasAttribute('role')) this.setSummaryAccessibility(cartDrawerNote);
-    // here the animation doesn't seem to always get triggered. A timeout seem to help
+
     setTimeout(() => {
       this.classList.add('animate', 'active');
     });
@@ -60,7 +59,7 @@ class CartDrawer extends HTMLElement {
     cartDrawerNote.setAttribute('role', 'button');
     cartDrawerNote.setAttribute('aria-expanded', 'false');
 
-    if (cartDrawerNote.nextElementSibling && cartDrawerNote.nextElementSibling.getAttribute('id')) {
+    if (cartDrawerNote.nextElementSibling.getAttribute('id')) {
       cartDrawerNote.setAttribute('aria-controls', cartDrawerNote.nextElementSibling.id);
     }
 
@@ -71,113 +70,39 @@ class CartDrawer extends HTMLElement {
     cartDrawerNote.parentElement.addEventListener('keyup', onKeyUpEscape);
   }
 
-  /**
-   * parsedState shape expected:
-   * {
-   *   id: <some id>,
-   *   sections: {
-   *     "cart-drawer": "<html string>",
-   *     "cart-icon-bubble": "<html string>"
-   *   }
-   * }
-   */
   renderContents(parsedState) {
-    try {
-      // Defensive: ensure parsedState and sections exist
-      if (!parsedState) {
-        console.warn('cart-drawer.renderContents called without parsedState');
-        return;
-      }
-      const sections = parsedState.sections || {};
+    this.querySelector('.drawer__inner').classList.contains('is-empty') &&
+      this.querySelector('.drawer__inner').classList.remove('is-empty');
+    this.productId = parsedState.id;
 
-      // Remove empty-state fragment if present (server will provide new HTML)
-      const emptyStateEl = this.querySelector('.drawer__inner-empty');
-      if (emptyStateEl) {
-        emptyStateEl.remove();
-      }
+    this.getSectionsToRender().forEach((section) => {
+      const sectionElement = section.selector
+        ? document.querySelector(section.selector)
+        : document.getElementById(section.id);
 
-      // Ensure .drawer__inner doesn't keep stale is-empty class
-      const inner = this.querySelector('.drawer__inner');
-      if (inner && inner.classList.contains('is-empty')) {
-        inner.classList.remove('is-empty');
-      }
+      if (!sectionElement) return;
 
-      this.productId = parsedState.id;
+      sectionElement.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.id], section.selector);
+    });
 
-      // Render each section returned by server into the matching selector on the page.
-      this.getSectionsToRender().forEach((section) => {
-        try {
-          const html = sections[section.id];
-          if (!html) return;
-
-          // Parse the returned HTML and find the requested selector within it
-          const doc = new DOMParser().parseFromString(html, 'text/html');
-          const selector = section.selector || '.shopify-section';
-          const fragment = doc.querySelector(selector);
-
-          if (!fragment) {
-            // nothing to put
-            console.warn(`cart-drawer: section "${section.id}" did not contain selector "${selector}"`);
-            return;
-          }
-
-          // Find the destination element in the current page DOM
-          const sectionElement = section.selector
-            ? document.querySelector(section.selector)
-            : document.getElementById(section.id);
-          if (!sectionElement) {
-            console.warn(`cart-drawer: destination for section "${section.id}" not found (selector/id)`);
-            return;
-          }
-
-          // Replace inner HTML safely
-          sectionElement.innerHTML = fragment.innerHTML;
-        } catch (errSection) {
-          console.error('cart-drawer: error rendering section', section, errSection);
-        }
-      });
-
-      // Rebind overlay click and open drawer after the DOM is updated
-      setTimeout(() => {
-        const overlay = this.querySelector('#CartDrawer-Overlay');
-        if (overlay) {
-          // remove previous listener if any, then add
-          overlay.removeEventListener('click', this.close.bind(this));
-          overlay.addEventListener('click', this.close.bind(this));
-        }
-        // If the server returned an "empty" cart markup, make sure drawer reflects it:
-        const nowInner = this.querySelector('.drawer__inner');
-        const nowEmpty = this.querySelector('.drawer__inner-empty');
-        if (nowEmpty) {
-          // ensure drawer knows it's empty
-          if (nowInner && !nowInner.classList.contains('is-empty')) nowInner.classList.add('is-empty');
-        } else {
-          // ensure not marked empty
-          if (nowInner && nowInner.classList.contains('is-empty')) nowInner.classList.remove('is-empty');
-        }
-
-        // Open — the open() method includes focus trap logic
-        this.open();
-      });
-    } catch (err) {
-      console.error('cart-drawer renderContents error', err);
-    }
+    setTimeout(() => {
+      this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
+      this.open();
+    });
   }
 
   getSectionInnerHTML(html, selector = '.shopify-section') {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    const el = doc.querySelector(selector);
-    return el ? el.innerHTML : '';
+    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector).innerHTML;
   }
 
   getSectionsToRender() {
     return [
       {
-        id: 'cart-drawer',
+        id: 'cart-drawer', // FIXED
         selector: '#CartDrawer',
       },
       {
-        id: 'cart-icon-bubble',
+        id: 'cart-icon-bubble', // FIXED
       },
     ];
   }
@@ -197,12 +122,12 @@ class CartDrawerItems extends CartItems {
   getSectionsToRender() {
     return [
       {
-        id: 'CartDrawer',
-        section: 'cart-drawer',
+        id: 'cart-drawer', // FIXED (was CartDrawer)
+        section: 'cart-drawer', // MUST match section filename
         selector: '.drawer__inner',
       },
       {
-        id: 'cart-icon-bubble',
+        id: 'cart-icon-bubble', // already correct
         section: 'cart-icon-bubble',
         selector: '.shopify-section',
       },

@@ -152,19 +152,26 @@
         e.preventDefault();
         const variantId = addBtn.dataset.variantId;
 
+        // 1. Add item to cart
         await addToCart(variantId);
 
+        // 2. Find the cart drawer element (may be outside this section)
         const cartDrawer = document.querySelector('cart-drawer');
 
         if (cartDrawer) {
-          // fetch updated sections exactly as Dawn expects
+          // 3. Fetch updated sections as Dawn expects
           const res = await fetch('/?sections=cart-drawer,cart-icon-bubble');
           const sectionsJson = await res.json();
 
+          // 4. Update the cart contents (including the bubble count)
           cartDrawer.renderContents({
             id: variantId,
             sections: sectionsJson,
           });
+
+          // 5. CRITICAL FIX: Explicitly call the open method on the component
+          // This ensures the drawer slides out smoothly after content update.
+          cartDrawer.open();
         }
 
         return;
