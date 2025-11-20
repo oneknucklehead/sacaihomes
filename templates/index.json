@@ -260,6 +260,21 @@
         "collection": "decor"
       }
     },
+    "collection_card_custom_n4RJYh": {
+      "type": "collection-card-custom",
+      "name": "Category Banner Cards",
+      "settings": {
+        "card1_img": "shopify://shop_images/pexels-pixabay-433200.jpg",
+        "card1_text": "Decor",
+        "card1_link": "shopify://collections/decor",
+        "card2_img": "shopify://shop_images/pexels-ulrike-hassler-159445-1484981.jpg",
+        "card2_text": "Lighting",
+        "card2_link": "shopify://collections/lighting",
+        "card3_img": "shopify://shop_images/pexels-designecologist-1248583.jpg",
+        "card3_text": "Sculptures",
+        "card3_link": "shopify://collections/sculptures"
+      }
+    },
     "rich_text": {
       "type": "rich-text",
       "blocks": {
@@ -433,6 +448,7 @@
     "1761479143745e5c33",
     "image_banner_PaG766",
     "product_carousel_RLEwr9",
+    "collection_card_custom_n4RJYh",
     "rich_text",
     "featured_collection",
     "collage",
