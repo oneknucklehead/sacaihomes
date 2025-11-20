@@ -1,62 +1,76 @@
-<div class="grid md:grid-cols-2 gap-8">
-  <!-- CARD 1 -->
-  <div class="p-6 border rounded-xl">
-    {% if section.settings.about_image %}
-      <img
-        src="{{ section.settings.about_image | image_url: width: 1200 }}"
-        width="{{ section.settings.about_image.width }}"
-        height="{{ section.settings.about_image.height }}"
-        alt="{{ section.settings.about_title }}"
-        class="w-full h-auto mb-4"
-      >
-    {% endif %}
+<div class="w-full bg-[#5A8E59] px-4">
+  <div class="flex flex-col mx-auto sm:flex-row gap-4 ">
+    <div class="p-12 lg:p-24 flex items-center justify-center flex-col w-full mx-auto">
+      {% if section.settings.about_image %}
+        {% if section.settings.catalog_button_link %}
+          <a
+            href="{{ section.settings.catalog_button_link }}"
+            class=""
+          >
+            <img
+              src="{{ section.settings.about_image | image_url }}"
+              width="{{ section.settings.about_image.width }}"
+              height="{{ section.settings.about_image.height }}"
+              alt="{{ section.settings.about_title }}"
+              class="w-full h-full object-cover mb-4"
+            >
+          </a>
+        {% endif %}
+      {% endif %}
 
-    {% if section.settings.about_title %}
-      <h2 class="text-2xl font-semibold mb-2">{{ section.settings.about_title }}</h2>
-    {% endif %}
+      {% if section.settings.about_title %}
+        <h2 class="text-2xl text-white font-semibold mb-2">{{ section.settings.about_title }}</h2>
+      {% endif %}
 
-    {% if section.settings.about_description %}
-      <p class="text-gray-600 mb-4">{{ section.settings.about_description }}</p>
-    {% endif %}
+      {% if section.settings.about_description %}
+        <p class="text-white mb-4">{{ section.settings.about_description }}</p>
+      {% endif %}
 
-    {% if section.settings.about_button_text and section.settings.about_button_link %}
-      <a
-        href="{{ section.settings.about_button_link }}"
-        class="inline-block bg-black text-white px-4 py-2 rounded-md"
-      >
-        {{ section.settings.about_button_text }}
-      </a>
-    {% endif %}
-  </div>
+      {% if section.settings.about_button_text and section.settings.about_button_link %}
+        <a
+          href="{{ section.settings.about_button_link }}"
+          class="inline-block border text-white px-[22px] font-semibold py-[10px] uppercase"
+        >
+          {{ section.settings.about_button_text }}
+        </a>
+      {% endif %}
+    </div>
 
-  <!-- CARD 2 -->
-  <div class="p-6 border rounded-xl">
-    {% if section.settings.catalog_image %}
-      <img
-        src="{{ section.settings.catalog_image | image_url: width: 1200 }}"
-        width="{{ section.settings.catalog_image.width }}"
-        height="{{ section.settings.catalog_image.height }}"
-        alt="{{ section.settings.catalog_title }}"
-        class="w-full h-auto mb-4"
-      >
-    {% endif %}
+    <div class="p-12 lg:p-24 flex items-center justify-center flex-col w-full mx-auto">
+      {% if section.settings.catalog_image %}
+        {% if section.settings.catalog_button_link %}
+          <a
+            href="{{ section.settings.catalog_button_link }}"
+            class=""
+          >
+            <img
+              src="{{ section.settings.catalog_image | image_url }}"
+              width="{{ section.settings.catalog_image.width }}"
+              height="{{ section.settings.catalog_image.height }}"
+              alt="{{ section.settings.catalog_title }}"
+              class="w-full h-full object-cover mb-4"
+            >
+          </a>
+        {% endif %}
+      {% endif %}
 
-    {% if section.settings.catalog_title %}
-      <h2 class="text-2xl font-semibold mb-2">{{ section.settings.catalog_title }}</h2>
-    {% endif %}
+      {% if section.settings.catalog_title %}
+        <h2 class="text-2xl text-white font-semibold mb-2">{{ section.settings.catalog_title }}</h2>
+      {% endif %}
 
-    {% if section.settings.catalog_description %}
-      <p class="text-gray-600 mb-4">{{ section.settings.catalog_description }}</p>
-    {% endif %}
+      {% if section.settings.catalog_description %}
+        <p class="text-white mb-4">{{ section.settings.catalog_description }}</p>
+      {% endif %}
 
-    {% if section.settings.catalog_button_text and section.settings.catalog_button_link %}
-      <a
-        href="{{ section.settings.catalog_button_link }}"
-        class="inline-block bg-black text-white px-4 py-2 rounded-md"
-      >
-        {{ section.settings.catalog_button_text }}
-      </a>
-    {% endif %}
+      {% if section.settings.catalog_button_text and section.settings.catalog_button_link %}
+        <a
+          href="{{ section.settings.catalog_button_link }}"
+          class="inline-block border text-white px-[22px] font-semibold py-[10px] uppercase"
+        >
+          {{ section.settings.catalog_button_text }}
+        </a>
+      {% endif %}
+    </div>
   </div>
 </div>
 <script></script>
