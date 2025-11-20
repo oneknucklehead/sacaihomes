@@ -305,6 +305,7 @@
       "type": "explore-grid",
       "name": "Explore Cards Grid",
       "settings": {
+        "heading": "Lorem ipsum",
         "about_image": "shopify://shop_images/pexels-pixabay-433200.jpg",
         "about_title": "title",
         "about_description": "description",
