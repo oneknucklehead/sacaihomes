@@ -1,103 +1,106 @@
-<div class="w-full">
-  {%- assign cards = (1..3) -%}
+{% comment %}
+  Section: Category Cards with Desktop Grid and Mobile Carousel
+  - Desktop: 3-column cards with full-click links
+  - Mobile: Swiper/Slick carousel (user will provide exact design next)
+  - Tailwind classes used
+{% endcomment %}
 
-  <!-- DESKTOP GRID -->
+<section class="w-full select-none" id="category-cards-{{ section.id }}">
   <div class="hidden md:grid grid-cols-3 h-[75vh]">
-    {% for i in cards %}
-      {% capture img %}card{{ i }}_img{% endcapture %}
-      {% capture text %}card{{ i }}_text{% endcapture %}
-      {% capture link %}card{{ i }}_link{% endcapture %}
-
-      <a
-        href="{{ section.settings[link] }}"
-        class="relative block overflow-hidden group cursor-pointer"
-      >
-        <div
-          class="absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms] ease-out group-hover:scale-110"
-          style="background-image:url('{{ section.settings[img] | image_url: width: 1500 }}');"
-        ></div>
-
-        <button
-          class="absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-2 border border-white text-white tracking-[3px] text-sm backdrop-blur-sm"
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.link }}" class="relative group h-full w-full overflow-hidden cursor-pointer">
+        <img
+          src="{{ block.settings.image | img_url: 'master' }}"
+          alt="{{ block.settings.title }}"
+          class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         >
-          {{ section.settings[text] }}
-        </button>
+
+        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-500"></div>
+
+        <!-- Button Overlay -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <div class="px-6 py-2 border border-white text-white tracking-wide text-xs md:text-sm hover:bg-white hover:text-black transition-all duration-500">
+            {{ block.settings.title }}
+          </div>
+        </div>
       </a>
     {% endfor %}
   </div>
 
-  <!-- MOBILE CAROUSEL -->
-  <div class="md:hidden relative">
-    <!-- Swiper container -->
-    <div class="swiper categorySwiper h-[70vh]">
-      <div class="swiper-wrapper">
-        {%- assign cards = (1..3) -%}
-        {% for i in cards %}
-          {% capture img %}card{{ i }}_img{% endcapture %}
-          {% capture text %}card{{ i }}_text{% endcapture %}
-          {% capture link %}card{{ i }}_link{% endcapture %}
-
-          <a
-            href="{{ section.settings[link] }}"
-            class="swiper-slide relative block w-full h-full"
-          >
-            <div
-              class="absolute inset-0 bg-cover bg-center"
-              style="background-image:url('{{ section.settings[img] | image_url: width: 1000 }}');"
-            ></div>
-
-            <button
-              class="absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-2 border border-white text-white tracking-[3px] text-xs backdrop-blur-sm"
+  <!-- MOBILE CAROUSEL (updated based on user description) -->
+  <div class="md:hidden swiper-container relative w-full h-[60vh]">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide">
+          <a href="{{ block.settings.link }}" class="relative block h-full w-full overflow-hidden">
+            <img
+              src="{{ block.settings.image | img_url: 'master' }}"
+              alt="{{ block.settings.title }}"
+              class="h-full w-full object-cover"
             >
-              {{ section.settings[text] }}
-            </button>
-          </a>
-        {% endfor %}
-      </div>
 
-      <!-- Pagination Dots -->
-      <div class="swiper-pagination !bottom-3"></div>
+            <!-- Bottom-left button -->
+            <div class="absolute bottom-6 left-6">
+              <div class="px-5 py-2 border border-white text-white text-xs tracking-wide bg-black/30 backdrop-blur-sm">
+                {{ block.settings.title }}
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
     </div>
+
+    <!-- Pagination dots -->
+    <div class="swiper-pagination !bottom-2"></div>
   </div>
-</div>
+</section>
+
+<!-- Swiper JS Init -->
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    new Swiper('.categorySwiper', {
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('.swiper-container', {
       loop: true,
-      grabCursor: true,
+      slidesPerView: 1,
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
       },
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      speed: 600,
     });
   });
 </script>
 
+<style>
+  /* Pagination dots styled like AddressHome */
+  .swiper-pagination-bullet {
+    width: 7px;
+    height: 7px;
+    background: #ffffff80; /* semi-white */
+    opacity: 1;
+    transition: all 0.35s ease;
+  }
+  .swiper-pagination-bullet-active {
+    width: 18px;
+    border-radius: 20px;
+    background: #ffffff; /* solid white */
+  }
+</style>
+
 {% schema %}
 {
-  "name": "Category Banner Cards",
-  "settings": [
-    { "type": "image_picker", "id": "card1_img", "label": "Card 1 Image" },
-    { "type": "text", "id": "card1_text", "label": "Card 1 Button Text", "default": "LEATHER" },
-    { "type": "url", "id": "card1_link", "label": "Card 1 Link" },
-
-    { "type": "image_picker", "id": "card2_img", "label": "Card 2 Image" },
-    { "type": "text", "id": "card2_text", "label": "Card 2 Button Text", "default": "HOME DECOR" },
-    { "type": "url", "id": "card2_link", "label": "Card 2 Link" },
-
-    { "type": "image_picker", "id": "card3_img", "label": "Card 3 Image" },
-    { "type": "text", "id": "card3_text", "label": "Card 3 Button Text", "default": "SERVING" },
-    { "type": "url", "id": "card3_link", "label": "Card 3 Link" }
-  ],
-  "presets": [
+  "name": "Category Cards Section",
+  "settings": [],
+  "blocks": [
     {
-      "name": "Category Banner Cards"
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Category" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
     }
-  ]
+  ],
+  "max_blocks": 3,
+  "presets": [{ "name": "Category Cards" }]
 }
 {% endschema %}
