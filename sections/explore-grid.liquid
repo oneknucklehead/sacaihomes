@@ -1,4 +1,9 @@
 <div class="w-full bg-[#5A8E59] px-4">
+  {% if section.settings.heading %}
+    <div>
+      <h1 class="text-center pt-12 text-white">{{ section.settings.heading }}</h1>
+    </div>
+  {% endif %}
   <div class="flex flex-col mx-auto sm:flex-row gap-4 ">
     <div class="p-12 lg:p-24 flex items-center justify-center flex-col w-full mx-auto">
       {% if section.settings.about_image %}
@@ -79,6 +84,12 @@
 {
   "name": "Explore Cards Grid",
   "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Lorem ipsum dolor"
+    },
     {
       "type": "header",
       "content": "About Card"
