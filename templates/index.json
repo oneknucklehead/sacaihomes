@@ -324,24 +324,24 @@
         "card_drcd3N": {
           "type": "card",
           "settings": {
-            "card_image": "shopify://shop_images/pexels-bemistermister-3636956.jpg",
-            "button_text": "Learn More",
+            "card_image": "shopify://shop_images/pexels-hngstrm-2758655.jpg",
+            "button_text": "Item 1",
             "button_link": "shopify://collections/servings"
           }
         },
         "card_fMgccT": {
           "type": "card",
           "settings": {
-            "card_image": "shopify://shop_images/pexels-taryn-elliott-4099349.jpg",
-            "button_text": "Learn More",
+            "card_image": "shopify://shop_images/pexels-julieaagaard-1374125.jpg",
+            "button_text": "item 2",
             "button_link": "shopify://collections/sculptures"
           }
         },
         "card_aRAg9f": {
           "type": "card",
           "settings": {
-            "card_image": "shopify://shop_images/pexels-bemistermister-3636956.jpg",
-            "button_text": "Learn More",
+            "card_image": "shopify://shop_images/pexels-designecologist-1008692.jpg",
+            "button_text": "item 3",
             "button_link": "shopify://collections/decor"
           }
         }
