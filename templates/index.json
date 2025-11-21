@@ -362,22 +362,25 @@
         "review_9k669t": {
           "type": "review",
           "settings": {
-            "quote": "Uniquely and beautifully designed and high quality products, especially bed linen and even all kinds of artifacts.",
-            "author": "Pooja Panreja"
+            "quote": "I would definitely recommend address home products.They actually send luxury products there products make the home more beautiful nd class apart.would love to shop with them in future",
+            "author": "Pooja Panreja",
+            "stars": 5
           }
         },
         "review_FmRx4U": {
           "type": "review",
           "settings": {
             "quote": "Uniquely and beautifully designed and high quality products, especially bed linen and even all kinds of artifacts.",
-            "author": "Pooja Panreja"
+            "author": "Pooja Panreja",
+            "stars": 5
           }
         },
         "review_tLJbDB": {
           "type": "review",
           "settings": {
             "quote": "Uniquely and beautifully designed and high quality products, especially bed linen and even all kinds of artifacts.",
-            "author": "Pooja Panreja"
+            "author": "Pooja Panreja",
+            "stars": 5
           }
         }
       },
@@ -412,6 +415,7 @@
         "heading",
         "text"
       ],
+      "disabled": true,
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
@@ -423,6 +427,7 @@
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "all",
         "products_to_show": 8,
@@ -477,6 +482,7 @@
         "product",
         "collection-1"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Multimedia collage",
         "heading_size": "h2",
@@ -490,6 +496,7 @@
     },
     "video": {
       "type": "video",
+      "disabled": true,
       "settings": {
         "heading": "",
         "heading_size": "h1",
@@ -538,6 +545,7 @@
         "column2",
         "column3"
       ],
+      "disabled": true,
       "settings": {
         "title": "",
         "heading_size": "h1",
