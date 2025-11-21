@@ -21,9 +21,14 @@ https://flickity.metafizzy.co
 }
 
 /* draggable */
-
+.flickity-enabled .flickity-viewport:focus,
+.flickity-enabled .flickity-slider:focus,
+.flickity-enabled .carousel-cell:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
 .flickity-enabled.is-draggable {
-  -webkit-tap-highlight-color: transparent;
+  /* -webkit-tap-highlight-color: transparent; */
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;

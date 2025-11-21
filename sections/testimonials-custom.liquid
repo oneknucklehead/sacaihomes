@@ -1,136 +1,103 @@
-<section
-  class="py-16 md:py-24 bg-gray-50/50"
-  id="ReviewCarouselSection"
-  style="background-color: {{ section.settings.background_color }}"
->
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    {% comment %} Star Rating - Fixed for visual consistency {% endcomment %}
-    <div class="text-xl tracking-widest text-black mb-6" aria-hidden="true">★★★★★</div>
-
-    <div id="review-viewport" class="relative overflow-hidden h-40 md:h-48 flex items-center justify-center">
-      {% comment %}
-        The #review-content container holds all reviews and is translated
-        vertically by JavaScript to create the sliding effect.
-        The transition classes handle the smooth animation.
-      {% endcomment %}
-      <div
-        id="review-content"
-        class="absolute top-0 left-0 w-full transition-transform duration-700 ease-in-out"
-        style="transform: translateY(0%);"
-      >
-        {% for block in section.blocks %}
-          <div
-            class="review-slide w-full h-40 md:h-48 flex flex-col justify-center items-center flex-shrink-0 px-4"
-            data-index="{{ forloop.index0 }}"
-          >
-            {% if block.settings.quote != blank %}
-              <blockquote class="text-2xl md:text-3xl font-serif italic text-gray-800 leading-normal mb-6 max-w-2xl mx-auto">
-                "{{ block.settings.quote | escape }}"
-              </blockquote>
-            {% endif %}
-
-            {% if block.settings.author != blank %}
-              <p class="text-sm font-medium uppercase tracking-wider text-gray-700">
-                {{ block.settings.author | escape }}
-              </p>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    {% comment %} Navigation Dots {% endcomment %}
-    <div id="review-dots" class="flex justify-center mt-8 space-x-2">
+<section id="ReviewCarouselSection" class="py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <div
+      class="js-reviews-carousel"
+      data-flickity='
+        {
+          "wrapAround": true,
+          "autoPlay": 5000,
+          "prevNextButtons": false,
+          "pageDots": false,
+          "cellAlign": "center",
+          "contain": true
+        }
+      '
+    >
       {% for block in section.blocks %}
-        <button
-          data-index="{{ forloop.index0 }}"
-          class="dot h-2 w-2 rounded-full transition-colors duration-300 {{ forloop.first | prepend: 'bg-black' | default: 'bg-gray-300' }}"
-          aria-label="Go to review {{ forloop.index }}"
-        ></button>
+        <div class="w-full px-6">
+          <div class="text-xl flex gap-1 items-center justify-center text-[#273A27] tracking-widest mb-6">
+            {% for i in (1..block.settings.stars) limit: 5 %}
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.3583 6.66667L8.33333 0L6.30833 6.66667H0L5.15 10.3417L3.19167 16.6667L8.33333 12.7583L13.4833 16.6667L11.525 10.3417L16.6667 6.66667H10.3583Z" fill="#273A27"/>
+              </svg>
+            {% endfor %}
+          </div>
+
+          <p class="text-3xl md:text-5xl font-serif italic leading-normal mb-6">
+            <em>"{{ block.settings.quote }}"</em>
+          </p>
+
+          <p class="text-2xl uppercase tracking-wider">
+            {{ block.settings.author }}
+          </p>
+        </div>
       {% endfor %}
     </div>
 
-    {% if section.blocks.size == 0 %}
-      <p class="text-gray-500 italic">Add review blocks to this section in the theme editor.</p>
-    {% endif %}
+    <!-- CUSTOM DOTS -->
+    <div id="review-dots" class="flex justify-center mt-6 space-x-2">
+      {% for block in section.blocks %}
+        <button
+          data-index="{{ forloop.index0 }}"
+          class="review-dot cursor-pointer h-[10px] w-[10px] rounded-full border border-[#273A27] transition-colors duration-300"
+        ></button>
+      {% endfor %}
+    </div>
   </div>
 </section>
 
+<style>
+  {% comment %} .review-flickity-carousel {
+    width: 100%;
+  }
+
+  .carousel-cell {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Optional: adjust Flickity dots */
+  .flickity-page-dots .dot {
+    background: #d1d5db !important; /* gray-300 */
+    width: 8px;
+    height: 8px;
+    opacity: 1 !important;
+  }
+
+  .flickity-page-dots .dot.is-selected {
+    background: #000 !important;
+    transform: scale(1.2);
+  } {% endcomment %}
+</style>
 <script>
-  // Script for the Review Carousel logic and animation
-  document.addEventListener('DOMContentLoaded', () => {
-    const section = document.getElementById('ReviewCarouselSection');
-    if (!section) return;
+  document.addEventListener('DOMContentLoaded', function () {
+    var carousel = document.querySelector('.js-reviews-carousel');
+    if (!carousel) return;
 
-    const content = section.querySelector('#review-content');
-    const dotsContainer = section.querySelector('#review-dots');
-    const slides = section.querySelectorAll('.review-slide');
-    const dots = section.querySelectorAll('.dot');
-    const totalSlides = slides.length;
+    var flkty = new Flickity(carousel);
 
-    if (totalSlides === 0) return;
+    var dots = document.querySelectorAll('.review-dot');
 
-    let currentIndex = 0;
-    const slideHeight = slides[0].offsetHeight; // Height of a single slide
-    const intervalTime = 5000; // 5 seconds for auto-slide
-
-    // Function to update the carousel position and dots
-    const updateCarousel = (newIndex) => {
-      // 1. Calculate the vertical offset (percentage)
-      // We want to translate the entire content container up by the height of 'newIndex' number of slides.
-      // Since all slides are the same height (100% of the viewport), we translate by -100% * newIndex
-      const translateValue = -100 * newIndex;
-      content.style.transform = `translateY(${translateValue}%)`;
-
-      // 2. Update dot active state
-      dots.forEach((dot, index) => {
-        dot.classList.remove('bg-black');
-        dot.classList.add('bg-gray-300');
-        if (index === newIndex) {
-          dot.classList.remove('bg-gray-300');
-          dot.classList.add('bg-black');
-        }
+    function updateDots(index) {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-[#273A27]', i === index);
+        dot.classList.toggle('bg-transparent', i !== index);
       });
+    }
 
-      currentIndex = newIndex;
-    };
-
-    // Auto-slide function
-    const startAutoSlide = () => {
-      return setInterval(() => {
-        const nextIndex = (currentIndex + 1) % totalSlides;
-        updateCarousel(nextIndex);
-      }, intervalTime);
-    };
-
-    let autoSlideInterval = startAutoSlide();
-
-    // Event listeners for dots
-    dotsContainer.addEventListener('click', (event) => {
-      const targetDot = event.target.closest('.dot');
-      if (targetDot) {
-        // Clear the current auto-slide interval and restart it after the manual interaction
-        clearInterval(autoSlideInterval);
-
-        const newIndex = parseInt(targetDot.dataset.index, 10);
-        updateCarousel(newIndex);
-
-        autoSlideInterval = startAutoSlide();
-      }
+    flkty.on('change', function (index) {
+      updateDots(index);
     });
 
-    // Initial check for height
-    if (slides.length > 0) {
-      // Set the height of the viewport explicitly based on the slide height for consistency
-      const singleSlideHeight = slides[0].offsetHeight;
-      const viewport = section.querySelector('#review-viewport');
-      if (viewport) {
-        viewport.style.height = `${singleSlideHeight}px`;
-      }
-    }
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', function () {
+        flkty.select(i);
+      });
+    });
+
+    updateDots(0); // initial
   });
 </script>
-
 {% schema %}
 {
   "name": "Sliding Testimonials",
@@ -164,6 +131,12 @@
           "id": "author",
           "label": "Author Name",
           "default": "Pooja Panreja"
+        },
+        {
+          "type": "number",
+          "id": "stars",
+          "label": "Stars",
+          "default": 5
         }
       ]
     }
