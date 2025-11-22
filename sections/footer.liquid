@@ -1,21 +1,159 @@
-<section>
-  {%- for block in section.blocks -%}
-    {%- if block.settings.menu != blank -%}
+<section class="bg-[#3A5C39] px-8 py-16">
+  <div class="text-white mb-12 gap-8 max-w-3xl flex flex-col justify-center items-center mx-auto">
+    {% if section.settings.newsletter_heading != blank %}
+      <h1 class="text-5xl font-semibold">{{ section.settings.newsletter_heading }}</h1>
+    {% endif %}
+    {% if section.settings.newsletter_subtext %}
+      <p class="text-2xl text-center">{{ section.settings.newsletter_subtext }}</p>
+    {% endif %}
+    {% comment %}
+      <form
+        method="post"
+        action="{{ routes.newsletter_subscribe_url }}"
+        class="w-full flex items-center"
+        accept-charset="UTF-8"
+        novalidate
+      >
+    {% endcomment %}
+    {%- form 'customer', id: 'ContactFooter', class: 'newsletter-form w-full h-full flex items-stretch' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+
+      <!-- EMAIL INPUT -->
+      <input
+        id="NewsletterForm--{{ section.id }}"
+        type="email"
+        name="contact[email]"
+        value="{{ form.email }}"
+        aria-required="true"
+        autocorrect="off"
+        autocapitalize="off"
+        autocomplete="email"
+        required
+        placeholder="Enter your email"
+        class="
+          flex-1 border border-white text-white placeholder-white placeholder:italic
+          bg-transparent px-6 py-4
+        "
+        {% if form.errors %}
+          autofocus aria-invalid="true" aria-describedby="ContactFooter-error"
+        {% elsif form.posted_successfully? %}
+          aria-describedby="ContactFooter-success"
+        {% endif %}
+      >
+
+      <!-- SUBMIT BUTTON -->
+      <div>
+        <button
+          type="submit"
+          class="ml-4 bg-[#273A27] px-6 h-full cursor-pointer flex items-center justify-center"
+          aria-label="{{ 'newsletter.button_label' | t }}"
+        >
+          <span class="text-white leading-none flex items-center">
+            <svg width="26" height="15" viewBox="0 0 26 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25.7071 8.07088C26.0976 7.68035 26.0976 7.04719 25.7071 6.65666L19.3431 0.292702C18.9526 -0.0978226 18.3195 -0.0978226 17.9289 0.292702C17.5384 0.683226 17.5384 1.31639 17.9289 1.70692L23.5858 7.36377L17.9289 13.0206C17.5384 13.4111 17.5384 14.0443 17.9289 14.4348C18.3195 14.8254 18.9526 14.8254 19.3431 14.4348L25.7071 8.07088ZM0 7.36377V8.36377H25V7.36377V6.36377H0V7.36377Z" fill="white"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <!-- ERRORS -->
+      {% if form.errors %}
+        <small class="text-red-400 block mt-2" id="ContactFooter-error">
+          {{ form.errors.translated_fields.email | capitalize }}
+          {{ form.errors.messages.email }}
+        </small>
+      {% endif %}
+
+      <!-- SUCCESS MESSAGE -->
+      {% if form.posted_successfully? %}
+        <h3 class="text-green-300 mt-2" id="ContactFooter-success" tabindex="-1" autofocus>
+          {{ 'newsletter.success' | t }}
+        </h3>
+      {% endif %}
+    {%- endform -%}
+
+    {% comment %} </form> {% endcomment %}
+  </div>
+  <div class="flex flex-wrap justify-between gap-y-8 md:gap-8 text-white">
+    <div class="px-6 mb-2 sm:basis-1/2  md:basis-1/4">
+      <p class="uppercase font-normal tracking-[0.2em] text-xl mb-4">WHO WE ARE</p>
+      <p class="max-w-lg text-2xl text-justify">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Vitae suscipit tellus mauris a diam maecenas sed enim ut. Ultricies mi quis hendrerit dolor magna
+        eget est lorem ipsum. Ullamcorper malesuada proin libero nunc consequat interdum varius sit amet.
+      </p>
+    </div>
+    {%- for block in section.blocks -%}
+      <div class="px-6 mb-2 basis-1/2 md:basis-auto">
+        {%- if block.settings.heading != blank -%}
+          <p class="uppercase font-normal tracking-[0.2em] text-xl mb-4">{{- block.settings.heading -}}</p>
+        {%- endif -%}
+        {%- if block.settings.menu != blank -%}
+          <ul class="">
+            {%- for link in block.settings.menu.links -%}
+              <li>
+                <a
+                  href="{{ link.url }}"
+                  class=" text-2xl"
+                >
+                  {% comment %} class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}" {% endcomment %}
+                  {{ link.title | escape }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    {% endfor %}
+    <div class="px-6 mb-2 basis-1/2  md:basis-1/4">
+      <p class="uppercase font-normal tracking-[0.2em] text-xl mb-4">WHO WE ARE</p>
+      <div class=" text-2xl flex flex-col gap-2">
+        {% if section.settings.contact_phone != blank %}
+          <a href="tel:{{ section.settings.contact_phone }}">{{ section.settings.contact_phone }}</a>
+        {% endif %}
+        {% if section.settings.additional_contact_details != blank %}
+          <p>{{ section.settings.additional_contact_details }}</p>
+        {% endif %}
+        {% if section.settings.contact_email != blank %}
+          <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+        {% endif %}
+      </div>
+      <div class="flex gap-8 items-center my-8">
+        <span class="w-6 h-6">
+          <svg width="100%" height="100%" viewBox="0 0 11 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.9635 7.11283H7.29167V5.08061C7.29167 4.03199 7.37917 3.37152 8.91979 3.37152H10.8656V0.140287C9.91875 0.0447724 8.96667 -0.00196871 8.01354 6.35069e-05C5.1875 6.35069e-05 3.125 1.68376 3.125 4.77476V7.11283H0V11.1773L3.125 11.1763V20.3223H7.29167V11.1742L10.4854 11.1732L10.9635 7.11283Z" fill="white"/>
+          </svg>
+        </span>
+        <span class="w-6 h-6">
+          <svg width="100%" height="100%" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.8333 0C20.0208 0.470459 18.3906 1.11162 17.4323 1.29656C17.4042 1.30367 17.3813 1.31281 17.3542 1.31993C16.5073 0.505006 15.3469 0 14.0625 0C11.474 0 9.375 2.04746 9.375 4.57249C9.375 4.7056 9.36354 4.95049 9.375 5.08055C5.88229 5.08055 3.22396 3.29626 1.31771 1.01611C1.11042 1.52416 1.01979 2.32689 1.01979 3.08085C1.01979 4.50442 2.16042 5.90258 3.93646 6.76932C3.60938 6.85163 3.24896 6.91056 2.87396 6.91056C2.26875 6.91056 1.62813 6.7551 1.04167 6.28362C1.04167 6.3009 1.04167 6.31716 1.04167 6.33545C1.04167 8.32499 3.20625 9.67946 5.13125 10.0564C4.74063 10.281 3.95313 10.3034 3.56875 10.3034C3.29792 10.3034 2.33958 10.1824 2.08333 10.1357C2.61875 11.7666 4.55 12.6831 6.39063 12.7156C4.95104 13.8171 3.95208 14.2255 1.00417 14.2255H0C1.8625 15.39 4.23438 16.2588 6.61146 16.2588C14.351 16.2588 18.75 10.5045 18.75 5.08055C18.75 4.99316 18.7479 4.81026 18.7448 4.62635C18.7448 4.60806 18.75 4.59078 18.75 4.57249C18.75 4.54506 18.7417 4.51864 18.7417 4.49121C18.7385 4.35301 18.7354 4.22397 18.7323 4.15691C19.5552 3.57772 20.2688 2.85527 20.8333 2.03222C20.0781 2.35941 19.2677 2.57889 18.4167 2.67847C19.2854 2.17041 20.5198 0.959208 20.8333 0Z" fill="white"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="text-2xl px-6 mt-8 flex justify-between items-center text-white">
+      <small class=""
+        >&copy; {{ 'now' | date: '%Y' }},
+        {{ 'SACAI HOMES Pvt. Ltd. | All Right Reserved.' | link_to: routes.root_url -}}
+      </small>
+      {% comment %} <small class="copyright__content">{{ powered_by_link }}</small> {% endcomment %}
+      {% comment %} {%- if section.settings.show_policy -%} {% endcomment %}
       <ul class="">
-        {%- for link in block.settings.menu.links -%}
-          <li>
-            <a
-              href="{{ link.url }}"
-              class=""
-            >
-              {% comment %} class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}" {% endcomment %}
-              {{ link.title | escape }}
-            </a>
-          </li>
+        {%- for policy in shop.policies -%}
+          {%- if policy != blank -%}
+            <li>
+              <small class=""
+                ><a href="{{ policy.url }}">{{ policy.title | escape }}</a></small
+              >
+            </li>
+          {%- endif -%}
         {%- endfor -%}
       </ul>
-    {%- endif -%}
-  {% endfor %}
+      {% comment %} {%- endif -%} {% endcomment %}
+    </div>
+  </div>
 </section>
 
 <style></style>
@@ -25,6 +163,7 @@
 {% schema %}
 {
   "name": "t:sections.footer.name",
+
   "blocks": [
     {
       "type": "link_list",
@@ -43,6 +182,52 @@
           "label": "t:sections.footer.blocks.link_list.settings.menu.label"
         }
       ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact Email Address",
+      "info": "Used for customer inquiries.",
+      "placeholder": "support@example.com",
+      "default": "info@shopify.com"
+    },
+    {
+      "type": "text",
+      "id": "additional_contact_details",
+      "label": "Additional Contact Details",
+      "info": "Used for customer inquiries.",
+      "placeholder": "We are available only on sat and sun",
+      "default": "(Mon - Sat 10am - 7pm)"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Contact Phone Number",
+      "info": "Enter a full phone number including country code.",
+      "placeholder": "+1 (555) 555-1234",
+      "default": "+1 (555) 555-1234"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter Information"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Heading",
+      "default": "BE THE FIRST ONE TO KNOW"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_subtext",
+      "label": "subtext",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }
   ]
 }

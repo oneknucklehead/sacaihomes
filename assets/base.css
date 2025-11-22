@@ -246,7 +246,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   font-style: var(--font-body-style);
   font-weight: var(--font-body-weight);
 }
-
+/* 
 h1,
 h2,
 h3,
@@ -352,7 +352,7 @@ h6,
   color: rgba(var(--color-foreground), 0.75);
   margin-block-start: 1.67em;
   margin-block-end: 1.67em;
-}
+} */
 
 blockquote {
   font-style: italic;
