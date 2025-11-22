@@ -1,7 +1,7 @@
 <section class="bg-[#3A5C39] px-8 py-16">
-  <div class="text-white mb-12 gap-8 max-w-3xl flex flex-col justify-center items-center mx-auto">
+  <div class="text-white px-6 mb-12 gap-8 max-w-3xl flex flex-col justify-center items-center mx-auto">
     {% if section.settings.newsletter_heading != blank %}
-      <h1 class="text-5xl font-semibold">{{ section.settings.newsletter_heading }}</h1>
+      <h1 class="text-5xl font-semibold text-center">{{ section.settings.newsletter_heading }}</h1>
     {% endif %}
     {% if section.settings.newsletter_subtext %}
       <p class="text-2xl text-center">{{ section.settings.newsletter_subtext }}</p>
@@ -133,14 +133,14 @@
     </div>
   </div>
   <div class="">
-    <div class="text-2xl px-6 mt-8 flex justify-between items-center text-white">
+    <div class="text-2xl px-6 mt-8 flex-wrap flex justify-center md:justify-between items-center text-white">
       <small class=""
         >&copy; {{ 'now' | date: '%Y' }},
         {{ 'SACAI HOMES Pvt. Ltd. | All Right Reserved.' | link_to: routes.root_url -}}
       </small>
       {% comment %} <small class="copyright__content">{{ powered_by_link }}</small> {% endcomment %}
       {% comment %} {%- if section.settings.show_policy -%} {% endcomment %}
-      <ul class="">
+      <ul class="desktop-container">
         {%- for policy in shop.policies -%}
           {%- if policy != blank -%}
             <li>
@@ -153,10 +153,40 @@
       </ul>
       {% comment %} {%- endif -%} {% endcomment %}
     </div>
+    <ul class="mobile-container text-white w-full flex gap-2 justify-center items-center border-t border-[#5A8E59] mt-8 pt-8">
+      {%- for policy in shop.policies -%}
+        {%- if policy != blank -%}
+          <li class="flex items-center justify-center">
+            <small class=""
+              ><a class="" href="{{ policy.url }}">{{ policy.title | escape }}</a></small
+            >
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
   </div>
 </section>
 
-<style></style>
+<style>
+  .desktop-container {
+    display: none;
+  }
+
+  .mobile-container {
+    display: block;
+  }
+
+  /* Show desktop version on screen wider than 768px */
+  @media (min-width: 768px) {
+    .desktop-container {
+      display: block;
+    }
+
+    .mobile-container {
+      display: none;
+    }
+  }
+</style>
 
 <script></script>
 
