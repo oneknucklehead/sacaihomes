@@ -14,54 +14,24 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "newsletter_b6fVWf": {
-          "type": "newsletter",
+        "link_list_3HXezf": {
+          "type": "link_list",
           "settings": {
-            "heading": "Stay Updated",
-            "text": "Subscribe to get updates on products and offers.",
-            "button_text": "Subscribe"
+            "heading": "Quick links",
+            "menu": "customer-account-main-menu"
           }
         },
-        "about_PzFfe8": {
-          "type": "about",
+        "link_list_7PGM97": {
+          "type": "link_list",
           "settings": {
-            "title": "About",
-            "text": "Write your store description here."
-          }
-        },
-        "menu_nFMJae": {
-          "type": "menu",
-          "settings": {
-            "title": "Quick Links",
-            "menu": ""
-          }
-        },
-        "menu_9GEgzm": {
-          "type": "menu",
-          "settings": {
-            "title": "Quick Links",
-            "menu": ""
-          }
-        },
-        "contact_agdGKR": {
-          "type": "contact",
-          "settings": {
-            "title": "Contact",
-            "address": "(Mon - Sat 10am - 7pm)",
-            "email": "connect@sacaihomes.com",
-            "phone": "+91 99999 99999",
-            "facebook": "https://www.facebook.com/",
-            "instagram": "https://www.instagram.com/",
-            "youtube": "https://www.youtube.com/"
+            "heading": "Quick links",
+            "menu": "customer-account-main-menu"
           }
         }
       },
       "block_order": [
-        "newsletter_b6fVWf",
-        "about_PzFfe8",
-        "menu_nFMJae",
-        "menu_9GEgzm",
-        "contact_agdGKR"
+        "link_list_3HXezf",
+        "link_list_7PGM97"
       ],
       "settings": {}
     }
