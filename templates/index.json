@@ -88,6 +88,21 @@
       "name": "Hero Carousel",
       "settings": {}
     },
+    "collection_slider_new_7MPBFL": {
+      "type": "collection-slider-new",
+      "name": "CollectionFlickity slider",
+      "settings": {
+        "heading": "Shop by collection",
+        "collections": [
+          "decor",
+          "lighting",
+          "sculptures",
+          "servings",
+          "frontpage",
+          "og-collection"
+        ]
+      }
+    },
     "1762762915d5e346fe": {
       "type": "_blocks",
       "blocks": {
@@ -567,6 +582,7 @@
   "order": [
     "image_banner",
     "hero_carousel_custom_gBxwwC",
+    "collection_slider_new_7MPBFL",
     "1762762915d5e346fe",
     "gifting_section_carousel_48EDLF",
     "1761479143745e5c33",
