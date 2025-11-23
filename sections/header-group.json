@@ -14,6 +14,13 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_Xa4dWX": {
+          "type": "announcement",
+          "settings": {
+            "text": "Sign Up & Get up to ₹1500 Off on Your First Order! KNOW MORE",
+            "link": ""
+          }
+        },
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
@@ -23,10 +30,11 @@
         }
       },
       "block_order": [
+        "announcement_Xa4dWX",
         "announcement-bar-0"
       ],
       "settings": {
-        "auto_rotate": false,
+        "auto_rotate": true,
         "change_slides_speed": 5,
         "announcement_bg_color": "#3a5c39",
         "announcement_text_color": "#ffffff",
@@ -47,7 +55,7 @@
         "sticky_header_type": "always",
         "show_line_separator": true,
         "color_scheme": "scheme-49f46eae-740a-4623-bf9a-9fc2a1503071",
-        "menu_color_scheme": "",
+        "menu_color_scheme": "scheme-49f46eae-740a-4623-bf9a-9fc2a1503071",
         "enable_country_selector": true,
         "enable_language_selector": true,
         "enable_customer_avatar": true,
