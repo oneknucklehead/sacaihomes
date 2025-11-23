@@ -7,14 +7,14 @@
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       {% for block in section.blocks %}
-        <div class="swiper-slide relative">
+        <div class="font-montserrat swiper-slide relative">
           <img
             src="{{ block.settings.image | img_url: '2000x' }}"
             alt="{{ block.settings.heading }}"
             class="w-full h-[80vh] object-cover"
           >
           <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center text-white px-4">
-            <p class="text-4xl md:text-6xl text-white font-semibold mb-12">{{ block.settings.heading }}</p>
+            <p class="text-4xl md:text-6xl text-white font-bold mb-12">{{ block.settings.heading }}</p>
             {% comment %} <p class="text-lg md:text-xl mb-6">{{ block.settings.subheading }}</p> {% endcomment %}
             {% if block.settings.button_label != blank and block.settings.button_link != blank %}
               <a
@@ -77,6 +77,7 @@
 
   /* Position pagination bottom-right */
   .swiper-pagination.custom-pagination {
+    display: flex;
     position: absolute !important;
     right: 5rem !important; /* move horizontally from right edge */
     bottom: 5rem !important; /* adjust vertical position — increase to lift higher */
@@ -87,6 +88,7 @@
     gap: 10px;
     justify-content: flex-end;
     z-index: 50;
+    padding: 0 18px;
   }
 
   /* Pagination bullets style */
@@ -108,8 +110,9 @@
   /* Responsive tweaks */
   @media (max-width: 768px) {
     .swiper-pagination.custom-pagination {
-      right: 1.25rem !important; /* 20px */
+      left: 1.5rem !important; /* 20px */
       bottom: 3.5rem !important; /* 56px */
+      justify-content: flex-start;
     }
   }
 </style>
