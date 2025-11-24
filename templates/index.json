@@ -115,14 +115,12 @@
         "carousel_collection": "decor",
         "container_width": 1400,
         "image_ratio": 80,
-        "title_size": 16,
-        "title_color": "#273a27",
-        "subtext_size": 14,
-        "subtext_color": "#273a27",
         "heading_size": 34,
         "heading_color": "#273a27",
+        "subtext_size": 14,
+        "subtext_color": "#273a27",
         "card_border_radius": 0,
-        "card_item_padding": 100,
+        "card_item_padding": 0,
         "card_background": "#ffffff",
         "background_color": "#ffffff",
         "text_alignment": "center"
@@ -337,7 +335,7 @@
       ],
       "name": "Sliding Testimonials Carousel",
       "settings": {
-        "background_color": "#fbfaf7"
+        "background_color": "#abcbaa"
       }
     },
     "rich_text": {
