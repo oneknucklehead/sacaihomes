@@ -103,49 +103,6 @@
         ]
       }
     },
-    "1762762915d5e346fe": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_3b8eae4_BT6iLV": {
-          "type": "ai_gen_block_3b8eae4",
-          "settings": {
-            "heading": "SHOP. GIFT. STYLE.",
-            "collections": [
-              "decor",
-              "frontpage",
-              "lighting",
-              "og-collection",
-              "sculptures",
-              "servings"
-            ],
-            "show_description": true,
-            "container_width": 1400,
-            "gap": 20,
-            "image_ratio": 100,
-            "text_alignment": "left",
-            "heading_alignment": "center",
-            "heading_size": 32,
-            "heading_color": "#273a27",
-            "card_border_radius": 0,
-            "card_background": "#ffffff",
-            "title_size": 18,
-            "title_color": "#273a27",
-            "description_size": 14,
-            "description_color": "#666666",
-            "button_size": 40,
-            "button_background": "#ffffff",
-            "button_hover_background": "#ffffff",
-            "button_color": "#273a27",
-            "background_color": "#f3f3f3"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_3b8eae4_BT6iLV"
-      ],
-      "settings": {}
-    },
     "gifting_section_carousel_48EDLF": {
       "type": "gifting-section-carousel",
       "name": "Gifting collection slider",
@@ -273,6 +230,21 @@
       "settings": {
         "heading": "Featured Products",
         "collection": "decor"
+      }
+    },
+    "collection_slider_new_JaqbUd": {
+      "type": "collection-slider-new",
+      "name": "CollectionFlickity slider",
+      "settings": {
+        "heading": "Collections",
+        "collections": [
+          "decor",
+          "lighting",
+          "sculptures",
+          "servings",
+          "og-collection",
+          "frontpage"
+        ]
       }
     },
     "blocks_YMW9px": {
@@ -583,11 +555,11 @@
     "image_banner",
     "hero_carousel_custom_gBxwwC",
     "collection_slider_new_7MPBFL",
-    "1762762915d5e346fe",
     "gifting_section_carousel_48EDLF",
     "1761479143745e5c33",
     "image_banner_PaG766",
     "product_carousel_RLEwr9",
+    "collection_slider_new_JaqbUd",
     "blocks_YMW9px",
     "explore_grid_mHKHwG",
     "collection_grid_carousel_Ar9J4f",
