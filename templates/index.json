@@ -247,47 +247,6 @@
         ]
       }
     },
-    "blocks_YMW9px": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_3b8eae4_VcpU3L": {
-          "type": "ai_gen_block_3b8eae4",
-          "settings": {
-            "heading": "Collections",
-            "collections": [
-              "decor",
-              "lighting",
-              "sculptures",
-              "servings"
-            ],
-            "show_description": true,
-            "container_width": 1400,
-            "gap": 20,
-            "image_ratio": 100,
-            "text_alignment": "left",
-            "heading_alignment": "center",
-            "heading_size": 32,
-            "heading_color": "#273a27",
-            "card_border_radius": 0,
-            "card_background": "#ffffff",
-            "title_size": 18,
-            "title_color": "#273a27",
-            "description_size": 14,
-            "description_color": "#666666",
-            "button_size": 40,
-            "button_background": "#ffffff",
-            "button_hover_background": "#ffffff",
-            "button_color": "#273a27",
-            "background_color": "#f3f3f3"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_3b8eae4_VcpU3L"
-      ],
-      "settings": {}
-    },
     "explore_grid_mHKHwG": {
       "type": "explore-grid",
       "name": "Explore Cards Grid",
@@ -560,7 +519,6 @@
     "image_banner_PaG766",
     "product_carousel_RLEwr9",
     "collection_slider_new_JaqbUd",
-    "blocks_YMW9px",
     "explore_grid_mHKHwG",
     "collection_grid_carousel_Ar9J4f",
     "testimonials_custom_eAUREH",
