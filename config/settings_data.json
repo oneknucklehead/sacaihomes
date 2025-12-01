@@ -13,7 +13,7 @@
     "logo_width": 110,
     "type_header_font": "bodoni_moda_n4",
     "heading_scale": 100,
-    "type_body_font": "assistant_n4",
+    "type_body_font": "bodoni_moda_n4",
     "body_scale": 100,
     "page_width": 1200,
     "spacing_sections": 0,
@@ -201,6 +201,17 @@
           "button": "#ffffff",
           "button_label": "#ffffff",
           "secondary_button_label": "#ffffff",
+          "shadow": "#121212"
+        }
+      },
+      "scheme-492f8b20-cdc6-4027-b5fc-405ec37c60fb": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#121212",
+          "button": "#121212",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#121212",
           "shadow": "#121212"
         }
       }
@@ -391,5 +402,11 @@
         }
       }
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      ".font-montserrat {font-family: Besley;}",
+      ".font-bold,.font-semibold {font-weight: 200;}"
+    ]
   }
 }

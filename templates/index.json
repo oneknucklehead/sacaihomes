@@ -85,6 +85,7 @@
         "slide_xjqrGw",
         "slide_8pfbEf"
       ],
+      "custom_css": [],
       "name": "Hero Carousel",
       "settings": {}
     },
@@ -105,6 +106,7 @@
     },
     "gifting_section_carousel_48EDLF": {
       "type": "gifting-section-carousel",
+      "custom_css": [],
       "name": "Gifting collection slider",
       "settings": {
         "hero_image": "shopify://shop_images/pexels-ulrike-hassler-159445-1484981.jpg",
@@ -120,9 +122,6 @@
         "subtext_size": 14,
         "subtext_color": "#273a27",
         "card_border_radius": 0,
-        "card_item_padding": 0,
-        "card_background": "#ffffff",
-        "background_color": "#ffffff",
         "text_alignment": "center"
       }
     },
@@ -334,9 +333,7 @@
         "review_tLJbDB"
       ],
       "name": "Sliding Testimonials Carousel",
-      "settings": {
-        "background_color": "#abcbaa"
-      }
+      "settings": {}
     },
     "rich_text": {
       "type": "rich-text",
