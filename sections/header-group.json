@@ -47,6 +47,9 @@
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        ".font-montserrat{font-family: montserrat;}"
+      ],
       "settings": {
         "logo_position": "top-center",
         "mobile_logo_position": "center",

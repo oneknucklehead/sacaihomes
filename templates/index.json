@@ -85,12 +85,18 @@
         "slide_xjqrGw",
         "slide_8pfbEf"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "section {margin: 0px 0 -25px 0px;}"
+      ],
       "name": "Hero Carousel",
       "settings": {}
     },
     "collection_slider_new_7MPBFL": {
       "type": "collection-slider-new",
+      "custom_css": [
+        "* {background-color: #fdfbf4;}",
+        " .absolute {padding: 20px 0px; }"
+      ],
       "name": "CollectionFlickity slider",
       "settings": {
         "heading": "SHOP. GIFT. STYLE.",
@@ -109,13 +115,13 @@
       "custom_css": [],
       "name": "Gifting collection slider",
       "settings": {
-        "hero_image": "shopify://shop_images/pexels-ulrike-hassler-159445-1484981.jpg",
+        "hero_image": "shopify://shop_images/Fresh_on_the_Nest_lANDSCAPE_copy_94976b32-4f10-4be6-a53e-23ad8f3b4a73.webp",
         "hero_heading": "Wedding Gifting",
         "hero_subtext": "Beautifully packaged, perfectly picked – Celebrate the new beginning with thoughtfully curated wedding gifts.",
         "explore_collection": "decor",
         "button_label": "EXPLORE",
         "carousel_collection": "decor",
-        "container_width": 1400,
+        "container_width": 1350,
         "image_ratio": 80,
         "heading_size": 34,
         "heading_color": "#273a27",
@@ -208,7 +214,7 @@
       ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/pexels-designecologist-1239298.jpg",
+        "image": "shopify://shop_images/Top_Banners4_Home_Decor_2000x_f32dc931-a038-43dc-bab1-632e34b6d6c5.webp",
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "image_behavior": "none",
